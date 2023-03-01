@@ -3,7 +3,7 @@ import React from 'react';
 const App = () => {
 
   return (
-    <div>Hello React App!</div>
+    <div className="app">Hello React App!</div>
   )
 }
 

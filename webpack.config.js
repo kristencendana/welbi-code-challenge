@@ -1,5 +1,6 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+// const CopyPlugin = require('copy-webpack-plugin');
 module.exports = {
   mode: 'development',
   entry: './src/client/index.tsx',
@@ -11,6 +12,7 @@ module.exports = {
   devtool: 'inline-source-map',
   devServer: {
     static: './dist',
+    hot: true,
     port: 5000,
     open: true,
     compress: true,
@@ -19,14 +21,20 @@ module.exports = {
   module: {
     rules: [
       {
-      test: /\.jsx?$/,
-      exclude: /node_modules/,
-      loader: 'babel-loader'
+        test: /\.jsx?$/,
+        exclude: /node_modules/,
+        loader: 'babel-loader'
       },
       {
-        test: /\.css$/i,
-        include: path.resolve(__dirname, 'public'),
-        use: ['style-loader', 'css-loader'],
+        test: /\.s[ac]ss$/i,
+        use: [
+          // Creates `style` nodes from JS strings
+          "style-loader",
+          // Translates CSS into CommonJS
+          "css-loader",
+          // Compiles Sass to CSS
+          "sass-loader",
+        ],
       },
       {
         test: /\.(ts|tsx)$/i,
@@ -40,7 +48,11 @@ module.exports = {
   },
   plugins:[
     new HtmlWebpackPlugin({
-    template: './src/client/index.html'
-    })
+    template: './src/client/index.html',
+    filename: './index.html',
+    }),
+    // new CopyPlugin({
+    //   patterns: [{ from: './src/client/style.css' }],
+    // }),
   ]
 }
