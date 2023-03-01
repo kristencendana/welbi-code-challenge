@@ -1,42 +1,46 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const CopyPlugin = require('copy-webpack-plugin');
-
 module.exports = {
   mode: 'development',
-  entry: './src/client/App.tsx',
+  entry: './src/client/index.tsx',
+  devtool: 'inline-source-map',
   output: {
     path: path.join(__dirname, '/dist'),
-    filename: 'bundle.js',
+    filename: 'bundle.js'
+  },
+  devtool: 'inline-source-map',
+  devServer: {
+    static: './dist',
+    port: 5000,
+    open: true,
+    compress: true,
+    historyApiFallback: true,
   },
   module: {
     rules: [
       {
-        test: /\.(js|jsx)$/,
-        exclude: /node_modules/,
-        use: ['babel-loader']
+      test: /\.jsx?$/,
+      exclude: /node_modules/,
+      loader: 'babel-loader'
       },
-    ],
+      {
+        test: /\.css$/i,
+        include: path.resolve(__dirname, 'public'),
+        use: ['style-loader', 'css-loader'],
+      },
+      {
+        test: /\.(ts|tsx)$/i,
+        use: ['ts-loader'],
+        exclude: /node_modules/,
+      },        
+    ]
   },
   resolve: {
-    extensions: ['.jsx', '.js', '.tsx', '.ts'],
+    extensions: ['.tsx', '.ts', '.jsx', '.js'],
   },
-  plugins: [
+  plugins:[
     new HtmlWebpackPlugin({
-      template: './src/client/index.html',
-      filename: './index.html',
-    }),
-    new CopyPlugin({
-      patterns: [{ from: './src/client/style.css'}],
-    }),
-  ],
-  devServer: {
-    static: {
-      directory: path.join(__dirname, './dist'),
-    },
-    proxy: {
-      '/api':'http:localhost:3000',
-      secure: false
-    }
-  }
+    template: './src/client/index.html'
+    })
+  ]
 }
