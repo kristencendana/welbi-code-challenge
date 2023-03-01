@@ -1,0 +1,33 @@
+{
+  "name": "welbi-code-challenge",
+  "version": "1.0.0",
+  "description": "Coding Challenge for Welbi",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kristencendana/welbi-code-challenge.git"
+  },
+  "author": "Kristen Abby Cendana",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kristencendana/welbi-code-challenge/issues"
+  },
+  "homepage": "https://github.com/kristencendana/welbi-code-challenge#readme",
+  "devDependencies": {
+    "css-loader": "^6.7.3",
+    "nodemon": "^2.0.20",
+    "ts-loader": "^9.4.2",
+    "typescript": "^4.9.5",
+    "webpack": "^5.75.0",
+    "webpack-cli": "^5.0.1",
+    "webpack-dev-server": "^4.11.1"
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "ts-node": "^10.9.1"
+  }
+}
