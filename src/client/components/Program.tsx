@@ -1,16 +1,21 @@
 import React from 'react';
+import { ProgramInterface, useDataContext } from '../contexts/DataContext';
 import Resident from './Resident'
-const Program = () => {
+import { useNavigate } from 'react-router-dom';
 
+const Program = (props: any) => {
+
+  const {programs} = useDataContext();
+
+  const navigate = useNavigate();
+  const handleClick = () => {
+    navigate(`/residents/${props.programId}`);
+  }
 
   return (
     <div>
-      Program Page
-      <p>Resident</p>
-      <p>Resident</p>
-      <button>Add Resident</button>
+      <h1 onClick={handleClick}>{props.name}</h1>
     </div>
-    // <Resident />
   )
 
 }

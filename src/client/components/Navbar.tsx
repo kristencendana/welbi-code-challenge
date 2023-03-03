@@ -5,7 +5,7 @@ const Navbar = () => {
 
   return (
     <div>
-      Navar
+      Navbar Here
     </div>
   )
 }

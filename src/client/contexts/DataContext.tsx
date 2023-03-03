@@ -1,15 +1,16 @@
 import React, { createContext, useContext, useState } from 'react';
+import { Program } from 'typescript';
 
 // Types interface for the Context
 export type DataContextType = {
   programs: ProgramInterface[]
-  residents: ResidentInterface[];
-  fetchAuthorization: () => void; // DO I NEED TO HAVE THIS HERE
+  residents: ResidentDictionaryInterface
+  // fetchAuthorization: () => void; // DO I NEED TO HAVE THIS HERE
   fetchResidents: () => void;
   fetchPrograms: () => void;
   addProgram: (program: ProgramInterface) => void;
-  addResident: (resident: ResidentInterface) => void;
-  addResidentToProgram: (program:ProgramInterface, resident: ResidentInterface) => void;
+  addResident: (resident: ResidentDictionaryInterface) => void;
+  addResidentToProgram: (program:ProgramInterface, resident: ResidentDictionaryInterface) => void;
 }
 
 // Types interface for Program Object.
@@ -28,14 +29,23 @@ export interface AttendeeInterface {
   residentId: number
   status: string
 }
+// Types interface for Resident Object.
+export interface ResidentDictionaryInterface {
+  residentId: {
+    id: number
+    status: string
+    name: string
+    room: string
+  }
+}
 
 // Types interface for Resident Object.
-export interface ResidentInterface {
-  id: number
-  status: string
-  name: string
-  room: string
-}
+// export interface ResidentInterface {
+//   id: number
+//   status: string
+//   name: string
+//   room: string
+// }
 
 // Creating a data context to share to components with default being an empty object literal.
 export const DataContext = React.createContext<DataContextType>({} as DataContextType);
@@ -53,7 +63,8 @@ type Props = {
 export const DataProvider: React.FC<Props> = ({children}) => {
   // Creating programs, residents, and functionality to update those states (both states initialized as an empty array).
   const [programs, setPrograms] = React.useState<ProgramInterface[]>([]);
-  const [residents, setResidents] = React.useState<ResidentInterface[]>([]);
+  const initialState = {residentId: {id:0, name: "Kristen", status:"Active", room:"100"}}
+  const [residents, setResidents] = React.useState<ResidentDictionaryInterface>(initialState);
 
   // Functionality for post request to receive authentication token
   const fetchAuthorization = ():void => {
@@ -69,6 +80,9 @@ export const DataProvider: React.FC<Props> = ({children}) => {
       .then(data => {
         console.log(data);
       })
+      .catch(() => {
+        console.log("Error in fetch authorization");
+      })
   }
   // Functionality for get request to receive programs
   const fetchPrograms = ():void => {
@@ -78,9 +92,12 @@ export const DataProvider: React.FC<Props> = ({children}) => {
     })
       .then(response => response.json())
       .then(data => {
-        console.log(data);
-        setResidents(data);
+        setPrograms(data);
+        // console.log(data);
         // we need to store this data into state using context API
+      })
+      .catch(() => {
+        console.log("Error in fetch programs");
       })
     }
   // Functionality for get request to receive residents
@@ -92,7 +109,14 @@ export const DataProvider: React.FC<Props> = ({children}) => {
       .then(response => response.json())
       .then(data => {
         console.log(data);
+        
+        for (let i = 0; i < data.length; i++){
+
+        }
         setResidents(data);
+      })
+      .catch(() => {
+        console.log("Error in fetch residents");
       })
     }
 
@@ -108,10 +132,13 @@ export const DataProvider: React.FC<Props> = ({children}) => {
       .then(data => {
         console.log(data);
       })
+      .catch(() => {
+        console.log("Error in add program");
+      })
     }
 
   // Functionality for post request to add resident
-  const addResident = (resident: ResidentInterface):void => {
+  const addResident = (resident: ResidentDictionaryInterface):void => {
     fetch('https://welbi.org/api/programs', {
       method: 'POST',
       headers: {
@@ -122,10 +149,13 @@ export const DataProvider: React.FC<Props> = ({children}) => {
       .then(data => {
         console.log(data);
       })
+      .catch(() => {
+        console.log("Error in add resident");
+      })
     }
 
     // Functionality for post request to add resident to program
-  const addResidentToProgram = (program: ProgramInterface, resident: ResidentInterface):void => {
+  const addResidentToProgram = (program: ProgramInterface, resident: ResidentDictionaryInterface):void => {
     const programId = program.id;
     fetch(`https://welbi.org/api/programs/[${programId}]/attend`, {
       method: 'POST',
@@ -137,9 +167,13 @@ export const DataProvider: React.FC<Props> = ({children}) => {
       .then(data => {
         console.log(data);
       })
+      .catch(() => {
+        console.log("Error in add resident to program");
+      })
     }
+
   return (
-    <DataContext.Provider value= {{programs, residents, fetchResidents, fetchPrograms, addAlertObj, updateStatus, addAlertObjComment, createYaml}}>
+    <DataContext.Provider value= {{programs, residents, fetchResidents, fetchPrograms, addProgram, addResident, addResidentToProgram}}>
         {children}
     </DataContext.Provider>
   )
