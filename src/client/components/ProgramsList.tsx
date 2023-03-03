@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Program from './Program';
 const ProgramsList = () => {
 
@@ -10,7 +10,9 @@ useEffect(() => {
 
 }, []);
 
-// programs 
+// after fetching data, update the state array
+const [programs, setPrograms] = useState([]);
+const [residents, setResidents] = useState([]);
 
 // Functionality for post request to receive authentication token
 const fetchAuthentication = ():void => {
