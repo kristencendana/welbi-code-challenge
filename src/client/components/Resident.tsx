@@ -1,6 +1,7 @@
 import React from 'react';
 import { useDataContext } from '../contexts/DataContext';
 import { useNavigate } from 'react-router-dom';
+import Navbar from './Navbar';
 
 const Resident = (props:any) => {
  
@@ -18,6 +19,7 @@ const Resident = (props:any) => {
   return (
     <div>
       {/* <h1 onClick={handleClick} > Resident Name </h1> */}
+      {/* <Navbar/> */}
       <h1 onClick={handleClick}>{resident[0].name}</h1>
     </div>
   )

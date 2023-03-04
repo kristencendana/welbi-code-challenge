@@ -9,19 +9,34 @@ export type DataContextType = {
   fetchResidents: () => void;
   fetchPrograms: () => void;
   addProgram: (program: ProgramInterface) => void;
-  addResident: (resident: ResidentDictionaryInterface) => void;
-  addResidentToProgram: (program:ProgramInterface, resident: ResidentDictionaryInterface) => void;
+  addResident: (resident: ResidentInterface) => void;
+  addResidentToProgram: (program:ProgramInterface, resident: ResidentInterface) => void;
 }
 
 // Types interface for Program Object.
 export interface ProgramInterface {
-  id: number
-  name: string
-  location: string
+  allDay: Boolean
+  applicantId: null
   attendance: AttendeeInterface[]
-  facilitators: string[]
-  start: string
+  createdAt: String
+  dimension: String
+  end: String
+  facilitators: String[]
+  hobbies: String[]
+  id: number
+  isRepeated: Boolean
+  levelOfCare: String[]
+  location: String
+  name: String
+  parentId: null
+  recurrence: null
+  start: String
+  tags: String[]
+  updatedAt: String
+  // isRepeated: boolean
 }
+
+
 
 // Types interface for Attendee Object.
 export interface AttendeeInterface {
@@ -30,21 +45,32 @@ export interface AttendeeInterface {
   status: string
 }
 // Types interface for Resident Object.
-export interface ResidentDictionaryInterface {
-  residentId: {
-    id: number
-    status: string
-    name: string
-    room: string
-  }
-}
+// export interface ResidentDictionaryInterface {
+//   residentId: {
+//     id: number
+//     status: string
+//     name: string
+//     room: string
+//   }
+// }
 
 // Types interface for Resident Object.
 export interface ResidentInterface {
-  id: number
-  status: string
-  name: string
-  room: string
+    ambulation: String,
+    applicantId: null,
+    attendance: AttendeeInterface[],
+    birthDate: String,
+    createdAt: String,
+    firstName: String,
+    id: number,
+    lastName: String,
+    levelOfCare: String,
+    moveInDate: String,
+    name: String,
+    preferredName: String,
+    room: String,
+    status: String,
+    updatedAt: String
 }
 
 // Creating a data context to share to components with default being an empty object literal.
@@ -121,14 +147,15 @@ export const DataProvider: React.FC<Props> = ({children}) => {
     fetch('https://welbi.org/api/programs', {
       method: 'POST',
       headers: {
+        // "Content-Type": "application/json",
         Authorization: `Bearer 34b37cc0-5abd-4b4d-aca4-ddb322e49277`},
-      body: JSON.stringify({ "email": "kristencendana@gmail.com" })
+      body: JSON.stringify(program)
     })
       .then(response => {
-        console.log(response.status)
-        if (response.status === 200){
+        // console.log(response.status)
+        // if (response.status === 200){
         return response.json()
-        }
+        // }
       })
       .then(data => {
         console.log(data);
@@ -139,8 +166,8 @@ export const DataProvider: React.FC<Props> = ({children}) => {
     }
 
   // Functionality for post request to add resident
-  const addResident = (resident: ResidentDictionaryInterface):void => {
-    fetch('https://welbi.org/api/programs', {
+  const addResident = (resident: ResidentInterface):void => {
+    fetch('https://welbi.org/api/residents', {
       method: 'POST',
       headers: {
         Authorization: `Bearer 34b37cc0-5abd-4b4d-aca4-ddb322e49277`},
@@ -156,7 +183,7 @@ export const DataProvider: React.FC<Props> = ({children}) => {
     }
 
     // Functionality for post request to add resident to program
-  const addResidentToProgram = (program: ProgramInterface, resident: ResidentDictionaryInterface):void => {
+  const addResidentToProgram = (program: ProgramInterface, resident: ResidentInterface):void => {
     const programId = program.id;
     fetch(`https://welbi.org/api/programs/[${programId}]/attend`, {
       method: 'POST',

@@ -1,44 +1,82 @@
 import React, {useEffect} from 'react';
 import Navbar from './components/Navbar';
-// import ComponentContainer from './containers/ComponentContainer';
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
 import Programs from './components/Programs';
 import ResidentInfo from './components/ResidentInfo';
 import Residents from './components/Residents';
 import DataProvider from './contexts/DataContext';
 import { useDataContext } from './contexts/DataContext';
+// import ComponentContainer from './containers/ComponentContainer';
 
 const App = () => {
+
+  const NavbarWrapper = () => {
+    return (
+      <div>
+        <Navbar/>
+        <Outlet/>
+      </div>
+    )
+  }
 
   const router = createBrowserRouter([
     {
       path: '/',
-      element: <Programs />,
+      element: <NavbarWrapper />,
+      children: [
+        {
+          path: '/',
+          element: <Programs />,
+        },
+        {
+          path: '/resident/:residentId',
+          element: <ResidentInfo />
+          // errorElement: <NotFoundPage />
+        },
+        {
+          path: '/allresidents',
+          element: <Residents />,
+        },
+        {
+          path: '/program/:programId',
+          element: <Residents />,
+        },
+      ]
     },
+    // {
+    //   path: '/',
+    //   element: <ComponentContainer />,
+    // },
+    // {
+    //   path: '/',
+    //   element: <Programs />,
+    // },
     // {
     //   path: '/allresidents',
     //   element: <Navbar />,
     // },
-    {
-      path: '/resident/:residentId',
-      element: <ResidentInfo />
-      // errorElement: <NotFoundPage />
-    },
-    {
-      path: '/allresidents',
-      element: <Residents />,
-    },
-    {
-      path: '/program/:programId',
-      element: <Residents />,
-    },
+    // {
+    //   path: '/resident/:residentId',
+    //   element: <ResidentInfo />
+    //   // errorElement: <NotFoundPage />
+    // },
+    // {
+    //   path: '/allresidents',
+    //   element: <Residents />,
+    // },
+    // {
+    //   path: '/program/:programId',
+    //   element: <Residents />,
+    // },
   ])
+  
 
   return (
     <DataProvider>
       <div className="app">
-        <header>Welbi</header>
-        <Navbar/>
+        <a href="/">Welbi</a>
+        <h1>Hello</h1>
+        {/* <Navbar/> */}
         <RouterProvider router={router} />
         {/* <ComponentContainer/> */}
       </div>
