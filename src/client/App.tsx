@@ -15,16 +15,19 @@ const App = () => {
       path: '/',
       element: <Programs />,
     },
+    // {
+    //   path: '/allresidents',
+    //   element: <Navbar />,
+    // },
     {
       path: '/resident/:residentId',
       element: <ResidentInfo />
       // errorElement: <NotFoundPage />
     },
-    // {
-    //   path: '/residents',
-    //   element: <Residents />
-    //   // errorElement: <NotFoundPage />
-    // },
+    {
+      path: '/allresidents',
+      element: <Residents />,
+    },
     {
       path: '/program/:programId',
       element: <Residents />,
@@ -34,11 +37,11 @@ const App = () => {
   return (
     <DataProvider>
       <div className="app">
-      <header>Welbi</header>
-      <Navbar/>
-      <RouterProvider router={router} />
-      {/* <ComponentContainer/> */}
-    </div>
+        <header>Welbi</header>
+        <Navbar/>
+        <RouterProvider router={router} />
+        {/* <ComponentContainer/> */}
+      </div>
     </DataProvider>
     
   )

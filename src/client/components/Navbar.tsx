@@ -3,16 +3,17 @@ import { useNavigate } from 'react-router-dom';
 
 const Navbar = () => {
 
+
   // const navigate = useNavigate();
 
-  // const handleClick = (page:string) => {
-  //   navigate(`/${page}`);
+  // const handleClick = () => {
+  //   navigate(`/allresidents`);
   // }
 
   return (
     <div>
-      <h1 >Programs</h1>
-      <h1 >Residents</h1>
+      <a href="/">Programs</a>
+      <a href="/allresidents">Residents</a>
     </div>
   )
 }

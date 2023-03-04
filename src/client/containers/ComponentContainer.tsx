@@ -4,6 +4,7 @@ import Residents from '../components/Residents';
 import ResidentInfo from '../components/ResidentInfo';
 import { useDataContext } from '../contexts/DataContext';
 import DataProvider from '../contexts/DataContext';
+import Navbar from '../components/Navbar';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 const ComponentContainer = () => {
@@ -41,6 +42,7 @@ const ComponentContainer = () => {
 
   return (
     <div>
+      {/* <Navbar/> */}
       <RouterProvider router={router} />
     </div>
   )
