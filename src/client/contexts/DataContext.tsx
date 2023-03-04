@@ -179,6 +179,7 @@ export const DataProvider: React.FC<Props> = ({children}) => {
 
   // Functionality for post request to add programs
   const addProgram = (program: ProgramOutputInterface):void => {
+
     fetch('https://welbi.org/api/programs', {
       method: 'POST',
       headers: {
