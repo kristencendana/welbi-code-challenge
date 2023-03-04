@@ -3,6 +3,7 @@ import Navbar from './components/Navbar';
 import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
 import Programs from './components/Programs';
 import ResidentInfo from './components/ResidentInfo';
+import ProgramInfo from './pages/ProgramInfo';
 import Residents from './components/Residents';
 import DataProvider from './contexts/DataContext';
 import { useDataContext } from './contexts/DataContext';
@@ -39,7 +40,7 @@ const App = () => {
         },
         {
           path: '/program/:programId',
-          element: <Residents />,
+          element: <ProgramInfo />,
         },
       ]
     },

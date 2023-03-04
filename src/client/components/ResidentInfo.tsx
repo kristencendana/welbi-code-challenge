@@ -11,6 +11,7 @@ const ResidentInfo = () => {
     return resident.id === Number(residentId);
   })
 
+  // NEED TO HAVE OPTION TO ENROLL TO PROGRAM MODAL TO HAVE A LIST OF PROGRAMS OR SEARCH BOX
   return (
     <div>
       {resident[0].name}
