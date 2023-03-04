@@ -2,6 +2,8 @@ import React, {useEffect} from 'react';
 import Resident from './Resident';
 import { useDataContext } from '../contexts/DataContext';
 import { useParams } from 'react-router-dom';
+import Navbar from './Navbar';
+
 const Residents = () => {
   
   const {programs, residents, fetchResidents} = useDataContext();
@@ -52,6 +54,7 @@ const Residents = () => {
 
   return (
     <div>
+      {/* <Navbar/> */}
       {result}
       {/* {all && result} */}
     </div>

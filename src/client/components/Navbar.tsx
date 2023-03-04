@@ -1,5 +1,5 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
 const Navbar = () => {
 
@@ -12,8 +12,15 @@ const Navbar = () => {
 
   return (
     <div>
-      <a href="/">Programs</a>
-      <a href="/allresidents">Residents</a>
+      {/* <a href="/">Programs</a> */}
+      <Link to="/">
+        <p>Programs</p>
+      </Link>
+      <Link to="/allresidents">
+        <p>Residents</p>
+      </Link>
+      {/* <a onClick={handleClick}>Residents</a> */}
+      {/* <p to="/allresidents "onClick={handleClick}>Residents</p> */}
     </div>
   )
 }
