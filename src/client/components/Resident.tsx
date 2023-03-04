@@ -1,25 +1,24 @@
 import React from 'react';
 import { useDataContext } from '../contexts/DataContext';
-import { useParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
+
 const Resident = (props:any) => {
  
   const {residents} = useDataContext();
-  const {residentId} = useParams();
   const navigate = useNavigate();
 
   const handleClick = () => {
-    navigate(`/residentinfo/${props.residentId}`);
+    navigate(`/resident/${props.residentId}`);
   }
 
-  // const resident = residents.filter((resident) => {
-  //   return resident.id === Number(residentId);
-  // })
-  // console.log(residents);
+  const resident = residents.filter((resident) => {
+    return resident.id === Number(props.residentId);
+  })
 
   return (
     <div>
-      <h1 onClick={handleClick}>Need Name Somehow</h1>
+      {/* <h1 onClick={handleClick} > Resident Name </h1> */}
+      <h1 onClick={handleClick}>{resident[0].name}</h1>
     </div>
   )
 }

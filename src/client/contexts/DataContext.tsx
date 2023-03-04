@@ -4,7 +4,7 @@ import { Program } from 'typescript';
 // Types interface for the Context
 export type DataContextType = {
   programs: ProgramInterface[]
-  residents: ResidentDictionaryInterface
+  residents: ResidentInterface[]
   // fetchAuthorization: () => void; // DO I NEED TO HAVE THIS HERE
   fetchResidents: () => void;
   fetchPrograms: () => void;
@@ -40,12 +40,12 @@ export interface ResidentDictionaryInterface {
 }
 
 // Types interface for Resident Object.
-// export interface ResidentInterface {
-//   id: number
-//   status: string
-//   name: string
-//   room: string
-// }
+export interface ResidentInterface {
+  id: number
+  status: string
+  name: string
+  room: string
+}
 
 // Creating a data context to share to components with default being an empty object literal.
 export const DataContext = React.createContext<DataContextType>({} as DataContextType);
@@ -64,7 +64,7 @@ export const DataProvider: React.FC<Props> = ({children}) => {
   // Creating programs, residents, and functionality to update those states (both states initialized as an empty array).
   const [programs, setPrograms] = React.useState<ProgramInterface[]>([]);
   const initialState = {residentId: {id:0, name: "Kristen", status:"Active", room:"100"}}
-  const [residents, setResidents] = React.useState<ResidentDictionaryInterface>(initialState);
+  const [residents, setResidents] = React.useState<ResidentInterface[]>([]);
 
   // Functionality for post request to receive authentication token
   const fetchAuthorization = ():void => {
@@ -109,10 +109,6 @@ export const DataProvider: React.FC<Props> = ({children}) => {
       .then(response => response.json())
       .then(data => {
         console.log(data);
-        
-        for (let i = 0; i < data.length; i++){
-
-        }
         setResidents(data);
       })
       .catch(() => {
@@ -128,7 +124,12 @@ export const DataProvider: React.FC<Props> = ({children}) => {
         Authorization: `Bearer <token>`},
       body: JSON.stringify({ "email": "kristencendana@gmail.com" })
     })
-      .then(response => response.json())
+      .then(response => {
+        console.log(response.status)
+        if (response.status === 200){
+        return response.json()
+        }
+      })
       .then(data => {
         console.log(data);
       })
