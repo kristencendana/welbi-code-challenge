@@ -6,7 +6,7 @@ import Navbar from './Navbar';
 
 const Residents = () => {
   
-  const {programs, residents, fetchResidents} = useDataContext();
+  const {programs, residents, addResident, addResidentToProgram} = useDataContext();
   const {programId} = useParams();
   // use params
   // filter grab only the param id of 109 and grab the attendees
@@ -54,9 +54,9 @@ const Residents = () => {
 
   return (
     <div>
-      {/* <Navbar/> */}
+      <h1 onClick={() => addResident}>Add New Resident</h1>
+      <h1 onClick={() => addResidentToProgram}>Add Resident to Program</h1>
       {result}
-      {/* {all && result} */}
     </div>
   )
 }

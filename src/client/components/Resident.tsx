@@ -19,6 +19,7 @@ const Resident = (props:any) => {
   return (
     <div>
       {/* <h1 onClick={handleClick} > Resident Name </h1> */}
+      
       {/* <Navbar/> */}
       <h1 onClick={handleClick}>{resident[0].name}</h1>
     </div>
