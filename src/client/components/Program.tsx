@@ -9,7 +9,7 @@ const Program = (props: any) => {
 
   const navigate = useNavigate();
   const handleClick = () => {
-    navigate(`/residents/${props.programId}`);
+    navigate(`/program/${props.programId}`);
   }
 
   return (

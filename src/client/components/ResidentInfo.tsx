@@ -1,12 +1,19 @@
 import React from "react";
+import { useParams } from 'react-router-dom';
+import { useDataContext } from "../contexts/DataContext";
 
 const ResidentInfo = () => {
 
+  const {residents} = useDataContext();
+  const {residentId} = useParams();
 
+  const resident = residents.filter((resident) => {
+    return resident.id === Number(residentId);
+  })
 
   return (
     <div>
-      Resident Info
+      {resident[0].name}
     </div>
   )
 }

@@ -6,20 +6,7 @@ const Residents = () => {
   
   const {programs, residents, fetchResidents} = useDataContext();
   const {programId} = useParams();
-  console.log(programId);
 
-  // upon load, we want to fetch programs (update programs state then utilize programs array)
-  useEffect(() => {
-    fetchResidents();
-    // fetchResidents();
-  }, [])
-
-  useEffect(() => {
-    // fetchPrograms();
-    // fetchResidents();
-    console.log(residents);
-  }, [residents])
-  
   // use params
   // filter grab only the param id of 109 and grab the attendees
   const program = programs.filter((program) => {
@@ -32,14 +19,28 @@ const Residents = () => {
   //   return resident.id === Number(residentId);
   // })
 
-  // const result = [];
-  // for (let i = 0; i < attendees.length; i++){
-  //   result.push(<Resident name={}residentId={attendees[i].residentId} />)
+  // console.log(residents);
+  // const residentsList = [];
+  // for (let attendee of attendees){
+  //   const resident = residents.filter((resident) => {
+  //       console.log(resident);
+  //       // console.log(resident.id)
+  //       // console.log(Number(props.residentId));
+  //       return resident.id === Number(attendee.residentId);
+  //     })
+  //     console.log(resident);
+  //     console.log(resident[0]);
+  //     residentsList.push(<Resident name={resident[0].name}residentId={attendee.residentId} />)
   // }
+
+  const result = [];
+  for (let i = 0; i < attendees.length; i++){
+    result.push(<Resident residentId={attendees[i].residentId} />)
+  }
 
   return (
     <div>
-      {attendees.map((attendee) => <Resident residentId={attendee.residentId}/>)}
+      {result}
     </div>
   )
 }

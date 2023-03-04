@@ -3,13 +3,12 @@ import { useDataContext } from '../contexts/DataContext';
 
 import Program from './Program';
 const Programs = () => {
-
-  const { programs, fetchResidents, fetchPrograms } = useDataContext();
-
+  // upon load, we want to fetch programs (update programs state then utilize programs array)
+  const {fetchResidents, fetchPrograms, programs, residents} = useDataContext();
   // upon load, we want to fetch programs (update programs state then utilize programs array)
   useEffect(() => {
+    fetchResidents();
     fetchPrograms();
-    // fetchResidents();
   }, [])
 
   useEffect(() => {
