@@ -201,6 +201,7 @@ export const DataProvider: React.FC<Props> = ({children}) => {
     fetch('https://welbi.org/api/residents', {
       method: 'POST',
       headers: {
+        'Content-Type': 'Application/JSON',
         Authorization: `Bearer 34b37cc0-5abd-4b4d-aca4-ddb322e49277`},
       body: JSON.stringify(resident)
     })
@@ -216,9 +217,11 @@ export const DataProvider: React.FC<Props> = ({children}) => {
     // Functionality for post request to add resident to program
   const addResidentToProgram = (programId: number, attendee: AttendeeOutputInterface):void => {
 
+    console.log(attendee)
     fetch(`https://welbi.org/api/programs/${programId}/attend`, {
       method: 'POST',
       headers: {
+        'Content-Type': 'Application/JSON',
         Authorization: `Bearer 34b37cc0-5abd-4b4d-aca4-ddb322e49277`},
       body: JSON.stringify(attendee)
     })

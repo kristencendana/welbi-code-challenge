@@ -21,6 +21,15 @@ const ProgramInfo = () => {
     result.push(<Resident key={attendees[i].residentId}residentId={attendees[i].residentId} />)
   }
 
+
+  // onclick add resident to program here
+  // addResidentToProgram(
+  //   1234,
+  //   {
+  //     residentId: 4,
+  //     status: "Active"
+  //   });
+  
   return (
     <div>
       <h1 onClick={() => addResidentToProgram}>Add Resident to Program</h1>
