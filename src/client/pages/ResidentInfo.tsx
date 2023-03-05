@@ -1,21 +1,18 @@
 import React from "react";
-import { useParams } from 'react-router-dom';
-import { useDataContext } from "../contexts/DataContext";
+import { useParams, useLocation } from 'react-router-dom';
+import { ResidentInterface, useDataContext } from "../contexts/DataContext";
 
 const ResidentInfo = () => {
 
   const {residents} = useDataContext();
-  const {residentId} = useParams();
-
-  const resident = residents.filter((resident) => {
-    return resident.id === Number(residentId);
-  })
+  const location = useLocation();
 
   // NEED TO HAVE OPTION TO ENROLL TO PROGRAM MODAL TO HAVE A LIST OF PROGRAMS OR SEARCH BOX
   return (
     <div>
       {/* Add Program for Resident */}
-      {resident[0].name}
+      {location.state.name}
+      {/* {location.state.lastName} */}
     </div>
   )
 }

@@ -1,27 +1,26 @@
 import React from 'react';
-import { useDataContext } from '../contexts/DataContext';
+import { ResidentInterface, useDataContext } from '../contexts/DataContext';
 import { useNavigate } from 'react-router-dom';
 import Navbar from './Navbar';
 
-const Resident = (props:any) => {
+type residentProps = {
+  key: String
+  residentId: string
+  residentObj: ResidentInterface
+}
+const Resident = (props:residentProps) => {
  
   const {residents} = useDataContext();
   const navigate = useNavigate();
 
   const handleClick = () => {
-    navigate(`/resident/${props.residentId}`);
+    navigate(`/resident/${props.key}`, {state: props.residentObj});
+    // navigate(`/resident/${props.residentId}`);
   }
-
-  const resident = residents.filter((resident) => {
-    return resident.id === Number(props.residentId);
-  })
 
   return (
     <div>
-      {/* <h1 onClick={handleClick} > Resident Name </h1> */}
-      
-      {/* <Navbar/> */}
-      <h1 onClick={handleClick}>{resident[0].name}</h1>
+      <h1 onClick={handleClick}>{props.residentObj.name}</h1>
     </div>
   )
 }

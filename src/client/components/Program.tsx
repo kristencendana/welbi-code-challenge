@@ -1,11 +1,18 @@
 import React from 'react';
-import { ProgramInterface, useDataContext } from '../contexts/DataContext';
-import Resident from './Resident'
+// import { ProgramInterface, useDataContext } from '../contexts/DataContext';
+// import Resident from './Resident'
 import { useNavigate } from 'react-router-dom';
+import { ProgramInterface } from '../contexts/DataContext';
 
-const Program = (props: any) => {
+type propsType = {
+  key: string
+  programId: string
+  programObj: ProgramInterface
+}
+const Program = (props: propsType) => {
 
-  const {programs} = useDataContext();
+  // const {programs} = useDataContext();
+  console.log(props);
 
   const navigate = useNavigate();
   const handleClick = () => {
@@ -14,7 +21,7 @@ const Program = (props: any) => {
 
   return (
     <div>
-      <h1 onClick={handleClick}>{props.name}</h1>
+      <h1 onClick={handleClick}>{props.programObj.name}</h1>
     </div>
   )
 

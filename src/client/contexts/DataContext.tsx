@@ -3,8 +3,8 @@ import { Program } from 'typescript';
 
 // Types interface for the Context
 export type DataContextType = {
-  programs: ProgramInterface[]
-  residents: ResidentInterface[]
+  programs: ProgramsStateInterface
+  residents: ResidentsStateInterface
   // fetchAuthorization: () => void; // DO I NEED TO HAVE THIS HERE
   fetchResidents: () => void;
   fetchPrograms: () => void;
@@ -14,6 +14,10 @@ export type DataContextType = {
 }
 
 // Types interface for Program Object.
+export interface ProgramsStateInterface {
+  [key: string]: ProgramInterface
+};
+
 export interface ProgramInterface {
   allDay: Boolean
   applicantId: null
@@ -57,24 +61,19 @@ export interface ProgramOutputInterface {
 export interface AttendeeInterface {
   programId: number
   residentId: number
-  status: string
+  status: String
 }
 
 export interface AttendeeOutputInterface {
   residentId: number
-  status: string
+  status: String
 }
-// Types interface for Resident Object.
-// export interface ResidentDictionaryInterface {
-//   residentId: {
-//     id: number
-//     status: string
-//     name: string
-//     room: string
-//   }
-// }
 
 // Types interface for Resident Object.
+export interface ResidentsStateInterface {
+  [key: string]: ResidentInterface;
+};
+
 export interface ResidentInterface {
     ambulation: String,
     applicantId: null,
@@ -123,9 +122,51 @@ type Props = {
 
 export const DataProvider: React.FC<Props> = ({children}) => {
   // Creating programs, residents, and functionality to update those states (both states initialized as an empty array).
-  const [programs, setPrograms] = React.useState<ProgramInterface[]>([]);
-  const initialState = {residentId: {id:0, name: "Kristen", status:"Active", room:"100"}}
-  const [residents, setResidents] = React.useState<ResidentInterface[]>([]);
+  const initialProgramsState: ProgramsStateInterface = {};
+  const initialProgram = {
+    allDay: false,
+    applicantId: null,
+    attendance: [{programId: 1, residentId: 1, status: "Active"}],
+    createdAt: "2023-02-07T06:16:24.847Z",
+    dimension: "Intellectual",
+    end: "2009-11-12T20:00:00.000Z",
+    facilitators: ['Rec Aide'],
+    hobbies: ['Debate', 'Public Speaking'],
+    id: 1234,
+    isRepeated: false,
+    levelOfCare: ['INDEPENDENT', 'ASSISTED'],
+    location: "Gymnasium",
+    name: "Debate",
+    parentId: null,
+    recurrence: null,
+    start: "2009-11-12T19:00:00.000Z",
+    tags: ['outing'],
+    updatedAt: "2023-02-07T06:16:24.847Z"
+  }
+  initialProgramsState[0] = initialProgram;
+  
+  const initialResidentsState: ResidentsStateInterface = {};
+  const initialResident = {
+    ambulation: "CANE",
+    applicantId: null,
+    attendance: [{programId: 1, residentId: 1, status: "Active"}],
+    birthDate: "1974-12-28T07:00:00.000Z",
+    createdAt: "2009-09-17T04:44:10.000Z",
+    firstName: "Greatest",
+    id: 63,
+    lastName: "Ever",
+    levelOfCare: "INDEPENDENT",
+    moveInDate: "2009-09-17T07:00:00.000Z",
+    name: "Kristen Cendana",
+    preferredName: "Abby",
+    room: "1",
+    status: "HERE",
+    updatedAt: "2009-09-17T04:44:10.000Z"
+  }
+  initialResidentsState[0] = initialResident;
+
+  const [programs, setPrograms] = React.useState<ProgramsStateInterface>(initialProgramsState);
+  const [residents, setResidents] = React.useState<ResidentsStateInterface>(initialResidentsState);
 
   // Functionality for post request to receive authentication token
   const fetchAuthorization = ():void => {
@@ -139,7 +180,7 @@ export const DataProvider: React.FC<Props> = ({children}) => {
     })
       .then(response => response.json())
       .then(data => {
-        console.log(data);
+        // console.log(data);
       })
       .catch(() => {
         console.log("Error in fetch authorization");
@@ -152,10 +193,14 @@ export const DataProvider: React.FC<Props> = ({children}) => {
         Authorization: `Bearer <token>`}
     })
       .then(response => response.json())
-      .then(data => {
-        setPrograms(data);
-        // console.log(data);
-        // we need to store this data into state using context API
+      .then(programsArray => {
+
+        const programsObj:ProgramsStateInterface = {};
+        for (let program of programsArray){
+          programsObj[program.id] = program;
+        }
+        console.log(programsObj)
+        setPrograms(programsObj);
       })
       .catch(() => {
         console.log("Error in fetch programs");
@@ -168,9 +213,14 @@ export const DataProvider: React.FC<Props> = ({children}) => {
         Authorization: `Bearer <token>`}
     })
       .then(response => response.json())
-      .then(data => {
-        console.log(data);
-        setResidents(data);
+      .then(residentsArray => {
+
+        const residentsObj:ResidentsStateInterface = {};
+        for (let resident of residentsArray){
+          residentsObj[resident.id] = resident;
+        }
+        console.log(residentsObj)
+        setResidents(residentsObj);
       })
       .catch(() => {
         console.log("Error in fetch residents");
@@ -183,7 +233,7 @@ export const DataProvider: React.FC<Props> = ({children}) => {
     fetch('https://welbi.org/api/programs', {
       method: 'POST',
       headers: {
-        // "Content-Type": "application/json",
+        'Content-Type': 'Application/JSON',
         Authorization: `Bearer <token>`},
       body: JSON.stringify(program)
     })

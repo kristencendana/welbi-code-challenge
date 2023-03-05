@@ -1,19 +1,15 @@
 import React, {useEffect} from 'react';
-import Resident from './Resident';
+import Resident from '../components/Resident';
 import { useDataContext } from '../contexts/DataContext';
-import { useParams } from 'react-router-dom';
-import Navbar from './Navbar';
 
 const Residents = () => {
   
   const {residents, addResident} = useDataContext();
-  // use params
-  // filter grab only the param id of 109 and grab the attendees
 
-  const result = [];
-    for (let resident of residents){
-      console.log(resident)
-      result.push(<Resident key={resident.id}residentId={resident.id} />)
+  const residentsList = [];
+    for (let residentId in residents){
+      console.log(residentId)
+      residentsList.push(<Resident key={residentId} residentId={residentId} residentObj={residents[residentId]} />)
     } 
   
     // const handleclick for add new resident
@@ -37,7 +33,7 @@ const Residents = () => {
     <div>
       <h1 onClick={() => addResident}>Add New Resident</h1>
       {/* <h1 onClick={() => addResidentToProgram}>Add Resident to Program</h1> */}
-      {result}
+      {residentsList}
     </div>
   )
 }

@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useDataContext } from '../contexts/DataContext';
-import Navbar from './Navbar';
+import Program from '../components/Program';
 
-import Program from './Program';
 const Programs = () => {
   // upon load, we want to fetch programs (update programs state then utilize programs array)
-  const {fetchResidents, fetchPrograms, addResident, programs, residents} = useDataContext();
+  const {fetchResidents, fetchPrograms, programs} = useDataContext();
   // upon load, we want to fetch programs (update programs state then utilize programs array)
   useEffect(() => {
     fetchResidents();
@@ -16,9 +15,9 @@ const Programs = () => {
   useEffect(() => {
     // fetchPrograms();
     // fetchResidents();
-    console.log(programs);
+    // console.log(programs);
   }, [programs])
-  console.log(programs)
+  // console.log(programs)
 
   const handleClick = () => {
 
@@ -44,14 +43,23 @@ const Programs = () => {
     // }
     // addProgram();
   }
-  // pass attendance, 
+  
+  const programsList = [];
+  for (let programId in programs){
+    console.log(programId);
+    programsList.push(<Program key={programId} programId={programId} programObj={programs[programId]}/>);
+  }
+
+  // for (let residentId in programs){
+  //   console.log(residentId);
+  //   programsList.push(<Program id={residentId} name={programs[residentId].name}/>);
+  // }
+
   return (
     <div>
       {/* <Navbar/> */}
       <h1 onClick={handleClick}>Add New Program</h1>
-      {programs.map((program) => (
-        <Program name={program.name} programId={program.id} attendance={program.attendance}/>
-      ))}
+      {programsList}
     </div>
   )
 }
