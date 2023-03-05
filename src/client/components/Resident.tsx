@@ -1,7 +1,6 @@
 import React from 'react';
 import { ResidentInterface, useDataContext } from '../contexts/DataContext';
 import { useNavigate } from 'react-router-dom';
-import Navbar from './Navbar';
 
 type residentProps = {
   key: String

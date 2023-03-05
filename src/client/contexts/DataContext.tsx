@@ -239,10 +239,10 @@ export const DataProvider: React.FC<Props> = ({children}) => {
     })
       .then(response => response.json())
       .then(data => {
-        const newProgram: ProgramsStateInterface = {}
+        const newPrograms: ProgramsStateInterface = {}
         const programId = data.id;
-        newProgram[programId] = data;
-        const newData = Object.assign({}, programs, newProgram);
+        newPrograms[programId] = data;
+        const newData = Object.assign({}, programs, newPrograms);
         // const newData = Object.assign(programs, newProgram);
         console.log(newData)
         
@@ -266,7 +266,12 @@ export const DataProvider: React.FC<Props> = ({children}) => {
     })
       .then(response => response.json())
       .then(data => {
-        console.log(data);
+        const newResidents: ResidentsStateInterface = {}
+        const residentId = data.id;
+        newResidents[residentId] = data;
+        const newData = Object.assign({}, residents, newResidents);
+        console.log(newData)
+        setResidents(newData);
       })
       .catch(() => {
         console.log("Error in add resident");
@@ -276,7 +281,6 @@ export const DataProvider: React.FC<Props> = ({children}) => {
     // Functionality for post request to add resident to program
   const addResidentToProgram = (programId: number, attendee: AttendeeOutputInterface):void => {
 
-    console.log(attendee)
     fetch(`https://welbi.org/api/programs/${programId}/attend`, {
       method: 'POST',
       headers: {
@@ -287,7 +291,24 @@ export const DataProvider: React.FC<Props> = ({children}) => {
     })
       .then(response => response.json())
       .then(data => {
-        console.log(data);
+        // Update state of Programs and Residents:
+        // make a copy of the programs object and residents object
+        const newPrograms:ProgramsStateInterface = Object.assign({}, programs);
+        const newResidents:ResidentsStateInterface = Object.assign({}, residents);
+        // create attendance object without applicantId
+        const newAttendee: AttendeeInterface = 
+          {
+            programId: programId,
+            residentId: data.residentId,
+            status: data.status
+          };
+        // append attendee to new program's attendance array
+        newPrograms[programId].attendance.push(newAttendee);
+        // append new program to resident's attendance array
+        newResidents[data.residentId].attendance.push(newAttendee);
+        // reset states calling setState functions
+        setPrograms(newPrograms);
+        setResidents(newResidents);
       })
       .catch(() => {
         console.log("Error in add resident to program");

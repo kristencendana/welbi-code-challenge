@@ -1,7 +1,7 @@
 // import button, table
 import React, {useEffect} from 'react';
 import Resident from '../components/Resident';
-import { useDataContext } from '../contexts/DataContext';
+import { AttendeeOutputInterface, useDataContext } from '../contexts/DataContext';
 import { useParams } from 'react-router-dom';
 
 const ProgramInfo = () => {
@@ -9,14 +9,14 @@ const ProgramInfo = () => {
   const {programs, residents, addResidentToProgram} = useDataContext();
   const {programId} = useParams();
   
-  console.log(programId);
+  // console.log(programId);
   const residentsList = [];
 
   // ensuring programId is not undefined
   if (programId){
     // grab the program's array attendance with query param programId
     const attendees = programs[programId].attendance;
-    console.log(attendees);
+    // console.log(attendees);
     
     for (let i = 0; i < attendees.length; i++){
       const residentId = String(attendees[i].residentId);
@@ -25,16 +25,21 @@ const ProgramInfo = () => {
   }
 
   // onclick add resident to program here
-  // addResidentToProgram(
-  //   1234,
-  //   {
-  //     residentId: 4,
-  //     status: "Active"
-  //   });
+  const handleClick = () => {
+
+  const test: AttendeeOutputInterface = 
+    {
+      residentId: 70,
+      status: "Active"
+    }
+    if (programId){
+      addResidentToProgram(Number(programId), test);
+    }
+  }
 
   return (
     <div>
-      <h1 onClick={() => addResidentToProgram}>Add Resident to Program</h1>
+      <h1 onClick={handleClick}>Add Resident to Program</h1>
       {residentsList}
     </div>
   )

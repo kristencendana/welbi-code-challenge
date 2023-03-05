@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useDataContext } from '../contexts/DataContext';
+import { ProgramInterface, ProgramOutputInterface, useDataContext } from '../contexts/DataContext';
 import Program from '../components/Program';
 
 const Programs = () => {
@@ -9,22 +9,17 @@ const Programs = () => {
   useEffect(() => {
     fetchResidents();
     fetchPrograms();
-    
-  }, [])
+  }, []);
 
   useEffect(() => {
-    // fetchPrograms();
-    // fetchResidents();
-    // console.log(programs);
-  }, [programs])
-  // console.log(programs)
+  }, [programs]);
 
   const handleClick = () => {
 
     // upon click, open up modal component
     // when clicked, we want to receive data from input form
     // clean up the data to what we like and then invoke addProgram
-    const test = 
+    const test : ProgramOutputInterface = 
     {
       allDay: false,
       createdAt: "2023-02-07T06:16:24.847Z",
@@ -56,7 +51,6 @@ const Programs = () => {
 
   return (
     <div>
-      {/* <Navbar/> */}
       <h1 onClick={handleClick}>Add New Program</h1>
       {programsList}
     </div>
