@@ -12,7 +12,7 @@ type propsType = {
 const Program = (props: propsType) => {
 
   // const {programs} = useDataContext();
-  console.log(props);
+  // console.log(props);
 
   const navigate = useNavigate();
   const handleClick = () => {

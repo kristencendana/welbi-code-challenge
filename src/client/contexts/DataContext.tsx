@@ -48,10 +48,10 @@ export interface ProgramOutputInterface {
   facilitators: String[]
   hobbies: String[]
   isRepeated: Boolean
-  levelOfCare: String
+  levelOfCare: String[]
   location: String
   name: String
-  recurrence: null
+  recurrence?: null
   start: String
   tags: String[]
   updatedAt: String
@@ -239,7 +239,16 @@ export const DataProvider: React.FC<Props> = ({children}) => {
     })
       .then(response => response.json())
       .then(data => {
-        console.log(data);
+        const newProgram: ProgramsStateInterface = {}
+        const programId = data.id;
+        newProgram[programId] = data;
+        const newData = Object.assign({}, programs, newProgram);
+        // const newData = Object.assign(programs, newProgram);
+        console.log(newData)
+        
+        setPrograms(newData);
+        // this doesn't automatically refresh for some reason??
+        // fetchPrograms();
       })
       .catch(() => {
         console.log("Error in add program");
