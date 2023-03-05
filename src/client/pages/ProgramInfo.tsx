@@ -17,10 +17,13 @@ const ProgramInfo = () => {
     // grab the program's array attendance with query param programId
     const attendees = programs[programId].attendance;
     // console.log(attendees);
-    
-    for (let i = 0; i < attendees.length; i++){
-      const residentId = String(attendees[i].residentId);
-      residentsList.push(<Resident key={residentId} residentId={residentId} residentObj={residents[residentId]} />)
+    if (attendees.length === 0){
+      residentsList.push(<div>No Current Attendees</div>)
+    } else {
+      for (let i = 0; i < attendees.length; i++){
+        const residentId = String(attendees[i].residentId);
+        residentsList.push(<Resident key={residentId} residentId={residentId} residentObj={residents[residentId]} />)
+      }
     }
   }
 

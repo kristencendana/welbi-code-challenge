@@ -67,7 +67,7 @@ export interface AttendeeInterface {
 export interface AttendeeOutputInterface {
   residentId: number
   status: String
-}
+}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
 
 // Types interface for Resident Object.
 export interface ResidentsStateInterface {
@@ -242,6 +242,7 @@ export const DataProvider: React.FC<Props> = ({children}) => {
         const newPrograms: ProgramsStateInterface = {}
         const programId = data.id;
         newPrograms[programId] = data;
+        newPrograms[programId].attendance = [];
         const newData = Object.assign({}, programs, newPrograms);
         // const newData = Object.assign(programs, newProgram);
         console.log(newData)
@@ -281,6 +282,8 @@ export const DataProvider: React.FC<Props> = ({children}) => {
     // Functionality for post request to add resident to program
   const addResidentToProgram = (programId: number, attendee: AttendeeOutputInterface):void => {
 
+    console.log(programId)
+    console.log(attendee)
     fetch(`https://welbi.org/api/programs/${programId}/attend`, {
       method: 'POST',
       headers: {

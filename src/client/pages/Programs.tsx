@@ -29,7 +29,7 @@ const Programs = () => {
       hobbies: ['Debate', 'Public Speaking'],
       levelOfCare: ['INDEPENDENT'],
       location: "Gymnasium",
-      name: "Swimming",
+      name: "Exercise",
       start: "2009-11-12T19:00:00.000Z",
       tags: ['outing'],
       updatedAt: "2023-02-07T06:16:24.847Z",
