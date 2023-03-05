@@ -1,10 +1,10 @@
 import React, {useEffect} from 'react';
 import Navbar from './components/Navbar';
 import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
-import Programs from './components/Programs';
-import ResidentInfo from './components/ResidentInfo';
+import Programs from './pages/Programs';
+import ResidentInfo from './pages/ResidentInfo';
 import ProgramInfo from './pages/ProgramInfo';
-import Residents from './components/Residents';
+import Residents from './pages/Residents';
 import DataProvider from './contexts/DataContext';
 import { useDataContext } from './contexts/DataContext';
 // import ComponentContainer from './containers/ComponentContainer';

@@ -6,21 +6,23 @@ import { useParams } from 'react-router-dom';
 
 const ProgramInfo = () => {
   
-  const {programs, addResidentToProgram} = useDataContext();
+  const {programs, residents, addResidentToProgram} = useDataContext();
   const {programId} = useParams();
-  // use params
-  // filter grab only the param id of 109 and grab the attendees
-  const result = [];
+  
+  console.log(programId);
+  const residentsList = [];
 
-  const program = programs.filter((program) => {
-    return program.id === Number(programId);
-  })
-  // after getting the program, get the attendance
-  const attendees = program[0].attendance;
-  for (let i = 0; i < attendees.length; i++){
-    result.push(<Resident key={attendees[i].residentId}residentId={attendees[i].residentId} />)
+  // ensuring programId is not undefined
+  if (programId){
+    // grab the program's array attendance with query param programId
+    const attendees = programs[programId].attendance;
+    console.log(attendees);
+    
+    for (let i = 0; i < attendees.length; i++){
+      const residentId = String(attendees[i].residentId);
+      residentsList.push(<Resident key={residentId} residentId={residentId} residentObj={residents[residentId]} />)
+    }
   }
-
 
   // onclick add resident to program here
   // addResidentToProgram(
@@ -29,11 +31,11 @@ const ProgramInfo = () => {
   //     residentId: 4,
   //     status: "Active"
   //   });
-  
+
   return (
     <div>
       <h1 onClick={() => addResidentToProgram}>Add Resident to Program</h1>
-      {result}
+      {residentsList}
     </div>
   )
 }
