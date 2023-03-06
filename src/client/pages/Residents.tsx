@@ -1,6 +1,8 @@
 import React, {useEffect} from 'react';
 import Resident from '../components/Resident';
 import { ResidentOutputInterface, useDataContext } from '../contexts/DataContext';
+import Button from '@mui/material/Button';
+import ResidentsTable from '../components/ResidentsTable';
 
 const Residents = () => {
   
@@ -36,9 +38,8 @@ const Residents = () => {
 
   return (
     <div>
-      <h1 onClick={handleClick}>Add New Resident</h1>
-      {/* <h1 onClick={() => addResidentToProgram}>Add Resident to Program</h1> */}
-      {residentsList}
+      <Button variant="contained" onClick={handleClick}>Add New Program</Button>
+      <ResidentsTable />
     </div>
   )
 }

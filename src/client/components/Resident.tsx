@@ -13,7 +13,7 @@ const Resident = (props:residentProps) => {
   const navigate = useNavigate();
 
   const handleClick = () => {
-    navigate(`/resident/${props.key}`, {state: props.residentObj});
+    navigate(`/resident/${props.residentId}`, {state: props.residentObj});
     // navigate(`/resident/${props.residentId}`);
   }
 
