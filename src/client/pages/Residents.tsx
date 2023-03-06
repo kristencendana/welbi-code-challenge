@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import Resident from '../components/Resident';
+// import Resident from '../components/Resident';
 import { ResidentOutputInterface, useDataContext } from '../contexts/DataContext';
 import Button from '@mui/material/Button';
 import ResidentsTable from '../components/ResidentsTable';
@@ -8,11 +8,11 @@ const Residents = () => {
   
   const {residents, addResident} = useDataContext();
 
-  const residentsList = [];
-    for (let residentId in residents){
-      console.log(residentId)
-      residentsList.push(<Resident key={residentId} residentId={residentId} residentObj={residents[residentId]} />)
-    } 
+  // const residentsList = [];
+  //   for (let residentId in residents){
+  //     console.log(residentId)
+  //     residentsList.push(<Resident key={residentId} residentId={residentId} residentObj={residents[residentId]} />)
+  //   } 
   
     // const handleclick for add new resident
     const handleClick = () => {

@@ -1,6 +1,6 @@
 // import button, table
 import React, {useEffect} from 'react';
-import Resident from '../components/Resident';
+// import Resident from '../components/Resident';
 import { AttendeeOutputInterface, useDataContext } from '../contexts/DataContext';
 import { useParams } from 'react-router-dom';
 import ResidentsTable from '../components/ResidentsTable';
