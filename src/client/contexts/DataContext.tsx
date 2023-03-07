@@ -87,6 +87,27 @@ export const DataProvider: React.FC<Props> = ({children}) => {
         console.log("Error in fetch authorization");
       })
   }
+
+  // Functionality to submit project
+  const submitFinish = ():void => {
+    fetch('https://welbi.org/api/finish', {
+      method: 'POST',
+      headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+          Authorization: `Bearer <token>`
+      },
+      body: JSON.stringify({ "url": "https://github.com/kristencendana/welbi-code-challenge" })
+    })
+      .then(response => response.json())
+      .then(data => {
+        // console.log(data);
+      })
+      .catch(() => {
+        console.log("Error in fetch authorization");
+      })
+  }
+
   // Functionality for get request to receive programs
   const fetchPrograms = ():void => {
     fetch('https://welbi.org/api/programs', {
@@ -167,7 +188,6 @@ export const DataProvider: React.FC<Props> = ({children}) => {
         const residentId = data.id;
         newResidents[residentId] = data;
         const newData = Object.assign({}, residents, newResidents);
-        console.log(newData)
         setResidents(newData);
       })
       .catch(() => {
@@ -178,8 +198,6 @@ export const DataProvider: React.FC<Props> = ({children}) => {
     // Functionality for post request to add resident to program
   const addResidentToProgram = (programId: number, attendee: AttendeeOutputInterface):void => {
 
-    console.log(programId)
-    console.log(attendee)
     fetch(`https://welbi.org/api/programs/${programId}/attend`, {
       method: 'POST',
       headers: {
