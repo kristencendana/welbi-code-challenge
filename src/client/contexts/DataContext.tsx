@@ -1,111 +1,9 @@
 import React, { createContext, useContext, useState } from 'react';
 import { Program } from 'typescript';
-
-// Types interface for the Context
-export type DataContextType = {
-  programs: ProgramsStateInterface
-  residents: ResidentsStateInterface
-  // fetchAuthorization: () => void; // DO I NEED TO HAVE THIS HERE
-  fetchResidents: () => void;
-  fetchPrograms: () => void;
-  addProgram: (program: ProgramOutputInterface) => void;
-  addResident: (resident: ResidentOutputInterface) => void;
-  addResidentToProgram: (programId:number, attendee: AttendeeOutputInterface) => void;
-}
-
-// Types interface for Program Object.
-export interface ProgramsStateInterface {
-  [key: string]: ProgramInterface
-};
-
-export interface ProgramInterface {
-  allDay: Boolean
-  applicantId: null
-  attendance: AttendeeInterface[]
-  createdAt: String
-  dimension: String
-  end: String
-  facilitators: String[]
-  hobbies: String[]
-  id: number
-  isRepeated: Boolean
-  levelOfCare: String[]
-  location: String
-  name: String
-  parentId: null
-  recurrence: null
-  start: String
-  tags: String[]
-  updatedAt: String
-  // isRepeated: boolean
-}
-
-export interface ProgramOutputInterface {
-  allDay: Boolean
-  createdAt: String
-  dimension: String
-  end: String
-  facilitators: String[]
-  hobbies: String[]
-  isRepeated: Boolean
-  levelOfCare: String[]
-  location: String
-  name: String
-  recurrence?: null
-  start: String
-  tags: String[]
-  updatedAt: String
-}
-
-// Types interface for Attendee Object.
-export interface AttendeeInterface {
-  programId: number
-  residentId: number
-  status: String
-}
-
-export interface AttendeeOutputInterface {
-  residentId: number
-  status: String
-}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
-
-// Types interface for Resident Object.
-export interface ResidentsStateInterface {
-  [key: string]: ResidentInterface;
-};
-
-export interface ResidentInterface {
-    ambulation: String,
-    applicantId: null,
-    attendance: AttendeeInterface[],
-    birthDate: String,
-    createdAt: String,
-    firstName: String,
-    id: number,
-    lastName: String,
-    levelOfCare: String,
-    moveInDate: String,
-    name: String,
-    preferredName: String,
-    room: String,
-    status: String,
-    updatedAt: String
-}
-
-export interface ResidentOutputInterface {
-  ambulation: String,
-  birthDate: String,
-  createdAt: String,
-  firstName: String,
-  lastName: String,
-  levelOfCare: String,
-  moveInDate: String,
-  name: String,
-  preferredName: String,
-  room: String,
-  status: String,
-  updatedAt: String
-}
+import {DataContextType, ProgramsStateInterface, 
+  ResidentsStateInterface, ProgramOutputInterface,
+  ResidentOutputInterface, AttendeeOutputInterface,
+  AttendeeInterface} from '../types';
 
 // Creating a data context to share to components with default being an empty object literal.
 export const DataContext = React.createContext<DataContextType>({} as DataContextType);
@@ -120,8 +18,10 @@ type Props = {
   children?: React.ReactNode;
 };
 
+// Data provider to wrap our app
 export const DataProvider: React.FC<Props> = ({children}) => {
-  // Creating programs, residents, and functionality to update those states (both states initialized as an empty array).
+  // Creating programs, residents, and functionality to update those states 
+  // (both states initialized as an nested object default data).
   const initialProgramsState: ProgramsStateInterface = {};
   const initialProgram = {
     allDay: false,
@@ -165,6 +65,7 @@ export const DataProvider: React.FC<Props> = ({children}) => {
   }
   initialResidentsState[0] = initialResident;
 
+  // using useState hook for programs and resident state objects
   const [programs, setPrograms] = React.useState<ProgramsStateInterface>(initialProgramsState);
   const [residents, setResidents] = React.useState<ResidentsStateInterface>(initialResidentsState);
 
@@ -194,12 +95,11 @@ export const DataProvider: React.FC<Props> = ({children}) => {
     })
       .then(response => response.json())
       .then(programsArray => {
-
+        // looping through data and adding data to object, then update state
         const programsObj:ProgramsStateInterface = {};
         for (let program of programsArray){
           programsObj[program.id] = program;
         }
-        console.log(programsObj)
         setPrograms(programsObj);
       })
       .catch(() => {
@@ -214,7 +114,7 @@ export const DataProvider: React.FC<Props> = ({children}) => {
     })
       .then(response => response.json())
       .then(residentsArray => {
-
+        // looping through data and adding data to object, then update state
         const residentsObj:ResidentsStateInterface = {};
         for (let resident of residentsArray){
           residentsObj[resident.id] = resident;
@@ -229,7 +129,6 @@ export const DataProvider: React.FC<Props> = ({children}) => {
 
   // Functionality for post request to add programs
   const addProgram = (program: ProgramOutputInterface):void => {
-
     fetch('https://welbi.org/api/programs', {
       method: 'POST',
       headers: {
@@ -239,17 +138,14 @@ export const DataProvider: React.FC<Props> = ({children}) => {
     })
       .then(response => response.json())
       .then(data => {
+        // grab given programId from argument, set key as id and data as value
+        // create attendance key as empty array and create and set new object state
         const newPrograms: ProgramsStateInterface = {}
         const programId = data.id;
         newPrograms[programId] = data;
         newPrograms[programId].attendance = [];
         const newData = Object.assign({}, programs, newPrograms);
-        // const newData = Object.assign(programs, newProgram);
-        // console.log(newData)
-        
         setPrograms(newData);
-        // this doesn't automatically refresh for some reason??
-        // fetchPrograms();
       })
       .catch(() => {
         console.log("Error in add program");

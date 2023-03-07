@@ -7,9 +7,11 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import { AttendeeInterface, ProgramInterface, ResidentInterface, useDataContext } from '../../contexts/DataContext';
+import { useDataContext } from '../../contexts/DataContext';
 import { useNavigate } from 'react-router-dom';
+import { ResidentInterface } from '../../types';
 
+// proper styling for cells
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
     backgroundColor: theme.palette.common.black,
@@ -24,12 +26,12 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   '&:nth-of-type(odd)': {
     backgroundColor: theme.palette.action.hover,
   },
-  // hide last border
   '&:last-child td, &:last-child th': {
     border: 0,
   },
 }));
 
+// functionality to create row data
 function createData(
   name: String,
   room: String,
@@ -39,15 +41,14 @@ function createData(
   return { name, room, status, levelofcare };
 }
 
+// props for ResidentsTable component
 export interface ResidentsDisplayProps {
   programId?: string
 }
 
-
 export default function ResidentsTable({programId}:ResidentsDisplayProps) {
 
   const {programs, residents} = useDataContext();
-
   const residentsArray: ResidentInterface[] = [];
   const noAttendance = [];
 
@@ -55,7 +56,7 @@ export default function ResidentsTable({programId}:ResidentsDisplayProps) {
     console.log(programId)
     // grab the program's array attendance with programId
     const attendees = programs[programId].attendance;
-    // console.log(attendees);
+    // if no attendance, display no attendance, otherwise display attendees
     if (attendees.length === 0){
       noAttendance.push(<div>No Current Attendees</div>)
     } else {
@@ -69,6 +70,7 @@ export default function ResidentsTable({programId}:ResidentsDisplayProps) {
     residentsArray.push(...Object.values(residents));
   }
 
+  // using navigate hook to go to other page when clicked, passing state prop
   const navigate = useNavigate();
   const handleClick = (residentId:number) => {
     const residentObj = residents[residentId];
@@ -90,7 +92,8 @@ export default function ResidentsTable({programId}:ResidentsDisplayProps) {
           {noAttendance}
           {residentsArray.map((row: ResidentInterface) => (
             <StyledTableRow key={row.id}>
-              <StyledTableCell component="th" scope="row" onClick={() => handleClick(row.id)}>
+              <StyledTableCell sx={{color: 'primary.main', cursor: 'pointer'}} 
+                component="th" scope="row" onClick={() => handleClick(row.id)}>
                 {row.name}
               </StyledTableCell>
               <StyledTableCell align="right">{row.room}</StyledTableCell>

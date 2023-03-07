@@ -18,8 +18,10 @@ const Programs = () => {
 
   return (
     <div>
-      <h1>Today's Programs</h1>
-      <ProgramsDialog />
+      <div className="title">
+        <div>Today's Programs</div>
+        <ProgramsDialog />
+      </div>
       <ProgramsTable />
     </div>
   )

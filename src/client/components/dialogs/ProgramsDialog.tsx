@@ -5,33 +5,12 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
-import ProgramsForm from '../forms/ProgramsForm';
-import { ProgramOutputInterface, useDataContext } from '../../contexts/DataContext';
-// const handleClick = () => {
+import { useDataContext } from '../../contexts/DataContext';
+import {ProgramOutputInterface} from '../../types';
 
-//   // upon click, open up modal component
-//   // when clicked, we want to receive data from input form
-//   // clean up the data to what we like and then invoke addProgram
-//   const test : ProgramOutputInterface = 
-//   {
-//     allDay: false,
-//     createdAt: "2023-02-07T06:16:24.847Z",
-//     dimension: "Intellectual",
-//     end: "2009-11-12T20:00:00.000Z",
-//     facilitators: ['Abby'],
-//     hobbies: ['Debate', 'Public Speaking'],
-//     levelOfCare: ['INDEPENDENT'],
-//     location: "Library",
-//     name: "Reading",
-//     start: "2009-11-12T19:00:00.000Z",
-//     tags: ['outing'],
-//     updatedAt: "2023-02-07T06:16:24.847Z",
-//     isRepeated: false
-//   };
-//   addProgram(test);
-// }
-
+// Functionality for Program Dialog Component
 export default function ProgramDialog() {
+  // grab state, create dialog component with open/close state
   const {addProgram} = useDataContext();
   const [open, setOpen] = React.useState(false);
   const [scroll, setScroll] = React.useState<DialogProps['scroll']>('paper');
@@ -45,9 +24,9 @@ export default function ProgramDialog() {
     setOpen(false);
   };
 
+  // handle oncklick submission of button to add new program
   const handleSubmit = () => {
-
-    // const randomId = Math.floor(Math.random()* 100000);
+    // creating a randomly generated string for dummy user name
     const result = Math.random().toString(36).substring(2,7);
     const newData : ProgramOutputInterface = 
       {
@@ -81,8 +60,12 @@ export default function ProgramDialog() {
   }, [open]);
 
   return (
-    <div>
-      <Button variant="contained" onClick={handleClickOpen('paper')}>Add Program</Button>
+    <div className="dialog">
+      <Button variant="contained" size="small" sx={{color: 'black', backgroundColor: 'rgb(150, 172, 210)', 
+        ':hover': {
+          bgcolor: 'white',
+          color: 'black'
+          }}} onClick={handleClickOpen('paper')}>Add Program</Button>
       <Dialog
         open={open}
         onClose={handleClose}
@@ -97,7 +80,6 @@ export default function ProgramDialog() {
             ref={descriptionElementRef}
             tabIndex={-1}
           >
-            {/* <ProgramsForm /> */}
             {[...new Array(1)]
               .map(
                 () => 'Insert Form Here',
@@ -106,8 +88,8 @@ export default function ProgramDialog() {
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose}>Cancel</Button>
-          <Button onClick={handleSubmit}>Submit</Button>
+          <Button sx={{color: 'error.main'}}onClick={handleClose}>Cancel</Button>
+          <Button sx={{color: 'success.main'}}onClick={handleSubmit}>Submit</Button>
         </DialogActions>
       </Dialog>
     </div>

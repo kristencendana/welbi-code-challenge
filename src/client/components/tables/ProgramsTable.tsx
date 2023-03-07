@@ -7,9 +7,11 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import { ProgramInterface, useDataContext } from '../../contexts/DataContext';
+import { useDataContext } from '../../contexts/DataContext';
 import { useNavigate } from 'react-router-dom';
-
+import {ProgramInterface} from '../../types';
+ 
+// Styling for table cells for Programs Table
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
     backgroundColor: theme.palette.common.black,
@@ -24,12 +26,11 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   '&:nth-of-type(odd)': {
     backgroundColor: theme.palette.action.hover,
   },
-  // hide last border
   '&:last-child td, &:last-child th': {
     border: 0,
   },
 }));
-
+// creating expected data
 function createData(
   name: String,
   dimension: String,
@@ -41,11 +42,12 @@ function createData(
 }
 
 export default function ProgramsTable() {
-
+  // grabbing state
   const {programs} = useDataContext();
-
+  // creating array to utilize map method in return
   const programsArray = Object.values(programs);
 
+  // using useNavigate hook to route to next page, passing query params
   const navigate = useNavigate();
   const handleClick = (programId:number) => {
     navigate(`/program/${programId}`);
@@ -66,7 +68,8 @@ export default function ProgramsTable() {
         <TableBody>
           {programsArray.map((row) => (
             <StyledTableRow key={row.id}>
-              <StyledTableCell component="th" scope="row" onClick={() => handleClick(row.id)}>
+              <StyledTableCell sx={{color: 'primary.main', cursor: 'pointer'}} 
+                component="th" scope="row" onClick={() => handleClick(row.id)}>
                 {row.name}
               </StyledTableCell>
               <StyledTableCell align="right">{row.location}</StyledTableCell>

@@ -8,7 +8,7 @@ import Residents from './pages/Residents';
 import DataProvider from './contexts/DataContext';
 
 const App = () => {
-
+// navbar wrapper for create browser router pathing
   const NavbarWrapper = () => {
     return (
       <div>
@@ -17,7 +17,7 @@ const App = () => {
       </div>
     )
   }
-
+// routes for pages
   const router = createBrowserRouter([
     {
       path: '/',
@@ -44,11 +44,10 @@ const App = () => {
     },
   ])
   
-
+// adding useContext data provider
   return (
     <DataProvider>
       <div className="app">
-        <a href="/">Welbi</a>
         <RouterProvider router={router} />
       </div>
     </DataProvider>

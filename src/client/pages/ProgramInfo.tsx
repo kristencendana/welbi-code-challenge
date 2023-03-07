@@ -1,15 +1,14 @@
-// import button, table
-import React, {useEffect} from 'react';
-// import Resident from '../components/Resident';
-import { AttendeeOutputInterface, useDataContext } from '../contexts/DataContext';
+import React from 'react';
+import {  useDataContext } from '../contexts/DataContext';
 import { useParams } from 'react-router-dom';
 import ResidentsTable from '../components/tables/ResidentsTable';
-import Button from '@mui/material/Button';
 import ProgramInfoDialog from '../components/dialogs/ProgramInfoDialog';
+import {AttendeeOutputInterface} from '../types';
 
 const ProgramInfo = () => {
-  
-  const {programs, residents, addResidentToProgram} = useDataContext();
+  // grabbing state from context
+  const {programs, addResidentToProgram} = useDataContext();
+  // accessing programId via query params from previous page's useNavigate hook
   const {programId} = useParams();
 
   const residentsList = [];
@@ -17,41 +16,21 @@ const ProgramInfo = () => {
 
   // ensuring programId is not undefined
   if (programId){
+    // if programId is truthy, access and grab the values from
+    // the state object with key as programId and push component with attribute
     programName.push(programs[programId].name);
-    // const attendee = programs[programId].attendance;
-    // // grab the program's array attendance with query param programId
-    // // console.log(attendees);
-    // if (attendee.length === 0){
-    //   residentsList.push(<div>No Current Attendees</div>)
     residentsList.push(<ResidentsTable programId={programId}/>);
   } else {
     residentsList.push(<ResidentsTable />);
   }
 
-  // onclick add resident to program here
-  const handleClick = () => {
-
-  const test: AttendeeOutputInterface = 
-    {
-      residentId: 70,
-      status: "Active"
-    }
-    if (programId){
-      addResidentToProgram(Number(programId), test);
-    }
-  }
-
   return (
     <div>
-      {/* <h1 onClick={handleClick}>Add Resident to Program</h1> */}
-      <h1>Program Info</h1>
-      <h1>{programName}</h1>
-      <ProgramInfoDialog programId={programId}/>
-      {/* <Button variant="contained" onClick={handleClick}>Add Resident to Program</Button> */}
-      {/* <ResidentsTable /> */}
-      {/* <ResidentsTable programId={programId}/> */}
+      <div className="title">
+        <div>Program Name: {programName}</div>
+        <ProgramInfoDialog programId={programId}/>
+      </div>
       {residentsList}
-      {/* {ResidentsTable} */}
     </div>
   )
 }

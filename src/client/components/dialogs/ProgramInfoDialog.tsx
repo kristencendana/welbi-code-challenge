@@ -5,38 +5,18 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
-import { AttendeeOutputInterface, useDataContext } from '../../contexts/DataContext';
+import { useDataContext } from '../../contexts/DataContext';
+import {AttendeeOutputInterface} from '../../types';
 
-// const handleClick = () => {
-
-//   // upon click, open up modal component
-//   // when clicked, we want to receive data from input form
-//   // clean up the data to what we like and then invoke addProgram
-//   const test : ProgramOutputInterface = 
-//   {
-//     allDay: false,
-//     createdAt: "2023-02-07T06:16:24.847Z",
-//     dimension: "Intellectual",
-//     end: "2009-11-12T20:00:00.000Z",
-//     facilitators: ['Abby'],
-//     hobbies: ['Debate', 'Public Speaking'],
-//     levelOfCare: ['INDEPENDENT'],
-//     location: "Library",
-//     name: "Reading",
-//     start: "2009-11-12T19:00:00.000Z",
-//     tags: ['outing'],
-//     updatedAt: "2023-02-07T06:16:24.847Z",
-//     isRepeated: false
-//   };
-//   addProgram(test);
-// }
-
+// props for Program Info Dialog Component
 export interface ProgramInfoDialogProps {
   programId: string | undefined
 }
 
+// Functionality for Program Info Dialog
 export default function ProgramInfoDialog({programId}: ProgramInfoDialogProps) {
-  const {addResidentToProgram} = useDataContext();
+  // grab state, create dialog component with open/close state
+  const {programs, addResidentToProgram} = useDataContext();
   const [open, setOpen] = React.useState(false);
   const [scroll, setScroll] = React.useState<DialogProps['scroll']>('paper');
 
@@ -49,17 +29,26 @@ export default function ProgramInfoDialog({programId}: ProgramInfoDialogProps) {
     setOpen(false);
   };
 
+  // functionality for onlick submission to add resident to program
   const handleSubmit = () => {
-
-    // const randomId = Math.floor(Math.random()* 100000);
-    // const result = Math.random().toString(36).substring(2,7);
+    // creating new dummy data
     const newData: AttendeeOutputInterface = 
       {
         residentId: 70,
         status: "Active"
-      }
+      } 
+
+      // if programId exists from props, check if user is already in program
+      // if user already exists, send alert, otherwise add and update state
       if (programId){
-        addResidentToProgram(Number(programId), newData);
+        const {attendance} = programs[programId]
+        for (let attendee of attendance){
+          if (attendee.residentId === newData.residentId){
+            alert('User already enrolled in Program');
+          } else {
+            addResidentToProgram(Number(programId), newData);
+          }
+        }
       }
     setOpen(false);
   }
@@ -77,7 +66,11 @@ export default function ProgramInfoDialog({programId}: ProgramInfoDialogProps) {
 
   return (
     <div>
-      <Button variant="contained" onClick={handleClickOpen('paper')}>Add Resident To Program</Button>
+      <Button variant="contained" size="small" sx={{color: 'black', backgroundColor: 'rgb(150, 172, 210)', 
+        ':hover': {
+          bgcolor: 'white',
+          color: 'black'
+          }}} onClick={handleClickOpen('paper')}>Enroll Resident to Program</Button>
       <Dialog
         open={open}
         onClose={handleClose}
@@ -100,8 +93,8 @@ export default function ProgramInfoDialog({programId}: ProgramInfoDialogProps) {
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose}>Cancel</Button>
-          <Button onClick={handleSubmit}>Submit</Button>
+          <Button sx={{color: 'error.main'}}onClick={handleClose}>Cancel</Button>
+          <Button sx={{color: 'success.main'}}onClick={handleSubmit}>Submit</Button>
         </DialogActions>
       </Dialog>
     </div>

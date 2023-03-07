@@ -5,34 +5,14 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
-import { ResidentOutputInterface, useDataContext } from '../../contexts/DataContext';
+import { useDataContext } from '../../contexts/DataContext';
+import {ResidentOutputInterface} from '../../types';
 
-// const handleClick = () => {
-
-//   // upon click, open up modal component
-//   // when clicked, we want to receive data from input form
-//   // clean up the data to what we like and then invoke addProgram
-//   const test : ProgramOutputInterface = 
-//   {
-//     allDay: false,
-//     createdAt: "2023-02-07T06:16:24.847Z",
-//     dimension: "Intellectual",
-//     end: "2009-11-12T20:00:00.000Z",
-//     facilitators: ['Abby'],
-//     hobbies: ['Debate', 'Public Speaking'],
-//     levelOfCare: ['INDEPENDENT'],
-//     location: "Library",
-//     name: "Reading",
-//     start: "2009-11-12T19:00:00.000Z",
-//     tags: ['outing'],
-//     updatedAt: "2023-02-07T06:16:24.847Z",
-//     isRepeated: false
-//   };
-//   addProgram(test);
-// }
-
+// Dialog Component for the Residents Page
 export default function ResidentDialog() {
+  // grabbing state
   const {addResident} = useDataContext();
+  // functionality below for opening and closing dialog
   const [open, setOpen] = React.useState(false);
   const [scroll, setScroll] = React.useState<DialogProps['scroll']>('paper');
 
@@ -45,9 +25,9 @@ export default function ResidentDialog() {
     setOpen(false);
   };
 
+  // Functionality for onClick to add data and update state
   const handleSubmit = () => {
 
-    // const randomId = Math.floor(Math.random()* 100000);
     const result = Math.random().toString(36).substring(2,7);
     const newData : ResidentOutputInterface = 
     {
@@ -81,7 +61,11 @@ export default function ResidentDialog() {
 
   return (
     <div>
-      <Button variant="contained" onClick={handleClickOpen('paper')}>Add Resident</Button>
+      <Button variant="contained" size="small" sx={{color: 'black', backgroundColor: 'rgb(150, 172, 210)', 
+        ':hover': {
+          bgcolor: 'white',
+          color: 'black'
+          }}} onClick={handleClickOpen('paper')}>Add Resident</Button>
       <Dialog
         open={open}
         onClose={handleClose}
@@ -104,8 +88,8 @@ export default function ResidentDialog() {
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose}>Cancel</Button>
-          <Button onClick={handleSubmit}>Submit</Button>
+          <Button sx={{color: 'error.main'}}onClick={handleClose}>Cancel</Button>
+          <Button sx={{color: 'success.main'}}onClick={handleSubmit}>Submit</Button>
         </DialogActions>
       </Dialog>
     </div>
