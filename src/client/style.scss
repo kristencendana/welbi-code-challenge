@@ -1,0 +1,64 @@
+$body-color: black;
+
+body {
+  color: $body-color;
+  background-color:#d4d4e0;
+  margin-top: 3rem;
+}
+
+.navbar {
+  background-color: rgb(150, 172, 210);
+  position: fixed;
+  height: 3rem;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-right: 1rem;
+  padding-left: 1rem;
+}
+
+.title {
+  background-color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 4.5rem;
+  margin-top: 5rem;
+  border-top-left-radius: 18px;
+  border-top-right-radius: 18px;
+  padding-right: 1rem;
+  padding-left: 1rem;
+  font-family: Montserrat;
+}
+
+.resident-info {
+  display: flex;
+
+}
+
+.links {
+  display: flex;
+  justify-content: space-between;
+}
+
+.programs {
+  margin-right: 10px;
+}
+
+.welbi {
+  text-decoration: none;
+  color: black;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: Montserrat;
+}
+
+.MuiButton-containedPrimary {
+  border-radius: 50px !important;
+}
