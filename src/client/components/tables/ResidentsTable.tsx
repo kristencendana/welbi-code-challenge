@@ -53,7 +53,6 @@ export default function ResidentsTable({programId}:ResidentsDisplayProps) {
   const noAttendance = [];
 
   if (programId){
-    console.log(programId)
     // grab the program's array attendance with programId
     const attendees = programs[programId].attendance;
     // if no attendance, display no attendance, otherwise display attendees
