@@ -2,7 +2,8 @@ import React, {useEffect} from 'react';
 // import Resident from '../components/Resident';
 import { ResidentOutputInterface, useDataContext } from '../contexts/DataContext';
 import Button from '@mui/material/Button';
-import ResidentsTable from '../components/ResidentsTable';
+import ResidentsTable from '../components/tables/ResidentsTable';
+import ResidentsDialog from '../components/dialogs/ResidentsDialog';
 
 const Residents = () => {
   
@@ -38,7 +39,8 @@ const Residents = () => {
 
   return (
     <div>
-      <Button variant="contained" onClick={handleClick}>Add New Program</Button>
+      {/* <Button variant="contained" onClick={handleClick}>Add New Program</Button> */}
+      <ResidentsDialog />
       <ResidentsTable />
     </div>
   )

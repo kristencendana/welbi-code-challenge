@@ -3,8 +3,9 @@ import React, {useEffect} from 'react';
 // import Resident from '../components/Resident';
 import { AttendeeOutputInterface, useDataContext } from '../contexts/DataContext';
 import { useParams } from 'react-router-dom';
-import ResidentsTable from '../components/ResidentsTable';
+import ResidentsTable from '../components/tables/ResidentsTable';
 import Button from '@mui/material/Button';
+import ProgramInfoDialog from '../components/dialogs/ProgramInfoDialog';
 
 const ProgramInfo = () => {
   
@@ -12,10 +13,11 @@ const ProgramInfo = () => {
   const {programId} = useParams();
 
   const residentsList = [];
+  let programName = [];
 
   // ensuring programId is not undefined
   if (programId){
-  
+    programName.push(programs[programId].name);
     // const attendee = programs[programId].attendance;
     // // grab the program's array attendance with query param programId
     // // console.log(attendees);
@@ -42,7 +44,9 @@ const ProgramInfo = () => {
   return (
     <div>
       {/* <h1 onClick={handleClick}>Add Resident to Program</h1> */}
-      <Button variant="contained" onClick={handleClick}>Add Resident to Program</Button>
+      <h1>{programName}</h1>
+      <ProgramInfoDialog />
+      {/* <Button variant="contained" onClick={handleClick}>Add Resident to Program</Button> */}
       {/* <ResidentsTable /> */}
       {/* <ResidentsTable programId={programId}/> */}
       {residentsList}

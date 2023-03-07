@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { ProgramInterface, ProgramOutputInterface, useDataContext } from '../contexts/DataContext';
-// import Program from '../components/Program';
+import ProgramDialog from '../components/dialogs/ProgramsDialog';
 import Button from '@mui/material/Button';
-import ProgramsTable from '../components/ProgramsTable';
+import ProgramsTable from '../components/tables/ProgramsTable';
 
 const Programs = () => {
   // upon load, we want to fetch programs (update programs state then utilize programs array)
@@ -15,30 +15,6 @@ const Programs = () => {
 
   useEffect(() => {
   }, [programs]);
-
-  const handleClick = () => {
-
-    // upon click, open up modal component
-    // when clicked, we want to receive data from input form
-    // clean up the data to what we like and then invoke addProgram
-    const test : ProgramOutputInterface = 
-    {
-      allDay: false,
-      createdAt: "2023-02-07T06:16:24.847Z",
-      dimension: "Intellectual",
-      end: "2009-11-12T20:00:00.000Z",
-      facilitators: ['Abby'],
-      hobbies: ['Debate', 'Public Speaking'],
-      levelOfCare: ['INDEPENDENT'],
-      location: "Library",
-      name: "Reading",
-      start: "2009-11-12T19:00:00.000Z",
-      tags: ['outing'],
-      updatedAt: "2023-02-07T06:16:24.847Z",
-      isRepeated: false
-    };
-    addProgram(test);
-  }
   
   // const programsList = [];
   // for (let programId in programs){
@@ -55,7 +31,8 @@ const Programs = () => {
   return (
     <div>
       {/* <h1 >Add New Program</h1> */}
-      <Button variant="contained" onClick={handleClick}>Add New Program</Button>
+      {/* <Button variant="contained" onClick={handleClick}>Add New Program</Button> */}
+      <ProgramDialog />
       <ProgramsTable />
       {/* {programsList} */}
     </div>

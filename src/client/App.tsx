@@ -49,7 +49,6 @@ const App = () => {
     <DataProvider>
       <div className="app">
         <a href="/">Welbi</a>
-        <h1>Hello</h1>
         <RouterProvider router={router} />
       </div>
     </DataProvider>

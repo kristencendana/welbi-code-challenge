@@ -3,7 +3,7 @@ import { useParams, useLocation } from 'react-router-dom';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import { AttendeeOutputInterface, ResidentInterface, useDataContext } from "../contexts/DataContext";
-import ResidentTable from '../components/ResidentTable';
+import ResidentTable from '../components/tables/ResidentTable';
 
 const ResidentInfo = () => {
 
@@ -32,7 +32,7 @@ const ResidentInfo = () => {
     return (
       <div>
         <h1>Resident Information</h1>
-        <Button variant="contained" onClick={handleClick}>Add Program to Resident</Button>
+        {/* <Button variant="contained" onClick={handleClick}>Add Program to Resident</Button> */}
         <Box
         component="img"
         sx={{

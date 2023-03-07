@@ -245,7 +245,7 @@ export const DataProvider: React.FC<Props> = ({children}) => {
         newPrograms[programId].attendance = [];
         const newData = Object.assign({}, programs, newPrograms);
         // const newData = Object.assign(programs, newProgram);
-        console.log(newData)
+        // console.log(newData)
         
         setPrograms(newData);
         // this doesn't automatically refresh for some reason??
