@@ -5,6 +5,7 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
+import { AttendeeOutputInterface, useDataContext } from '../../contexts/DataContext';
 
 // const handleClick = () => {
 
@@ -30,7 +31,12 @@ import DialogTitle from '@mui/material/DialogTitle';
 //   addProgram(test);
 // }
 
-export default function ProgramInfoDialog() {
+export interface ProgramInfoDialogProps {
+  programId: string | undefined
+}
+
+export default function ProgramInfoDialog({programId}: ProgramInfoDialogProps) {
+  const {addResidentToProgram} = useDataContext();
   const [open, setOpen] = React.useState(false);
   const [scroll, setScroll] = React.useState<DialogProps['scroll']>('paper');
 
@@ -42,6 +48,21 @@ export default function ProgramInfoDialog() {
   const handleClose = () => {
     setOpen(false);
   };
+
+  const handleSubmit = () => {
+
+    // const randomId = Math.floor(Math.random()* 100000);
+    // const result = Math.random().toString(36).substring(2,7);
+    const newData: AttendeeOutputInterface = 
+      {
+        residentId: 70,
+        status: "Active"
+      }
+      if (programId){
+        addResidentToProgram(Number(programId), newData);
+      }
+    setOpen(false);
+  }
 
   // utilizing the useRef hook to create a focus on the open element
   const descriptionElementRef = React.useRef<HTMLElement>(null);
@@ -71,7 +92,7 @@ export default function ProgramInfoDialog() {
             ref={descriptionElementRef}
             tabIndex={-1}
           >
-            {[...new Array(50)]
+            {[...new Array(1)]
               .map(
                 () => `Insert Form Here`,
               )
@@ -80,7 +101,7 @@ export default function ProgramInfoDialog() {
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Cancel</Button>
-          <Button onClick={handleClose}>Submit</Button>
+          <Button onClick={handleSubmit}>Submit</Button>
         </DialogActions>
       </Dialog>
     </div>

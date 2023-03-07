@@ -44,8 +44,9 @@ const ProgramInfo = () => {
   return (
     <div>
       {/* <h1 onClick={handleClick}>Add Resident to Program</h1> */}
+      <h1>Program Info</h1>
       <h1>{programName}</h1>
-      <ProgramInfoDialog />
+      <ProgramInfoDialog programId={programId}/>
       {/* <Button variant="contained" onClick={handleClick}>Add Resident to Program</Button> */}
       {/* <ResidentsTable /> */}
       {/* <ResidentsTable programId={programId}/> */}

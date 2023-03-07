@@ -5,7 +5,8 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
-
+import ProgramsForm from '../forms/ProgramsForm';
+import { ProgramOutputInterface, useDataContext } from '../../contexts/DataContext';
 // const handleClick = () => {
 
 //   // upon click, open up modal component
@@ -31,6 +32,7 @@ import DialogTitle from '@mui/material/DialogTitle';
 // }
 
 export default function ProgramDialog() {
+  const {addProgram} = useDataContext();
   const [open, setOpen] = React.useState(false);
   const [scroll, setScroll] = React.useState<DialogProps['scroll']>('paper');
 
@@ -42,6 +44,30 @@ export default function ProgramDialog() {
   const handleClose = () => {
     setOpen(false);
   };
+
+  const handleSubmit = () => {
+
+    // const randomId = Math.floor(Math.random()* 100000);
+    const result = Math.random().toString(36).substring(2,7);
+    const newData : ProgramOutputInterface = 
+      {
+        allDay: false,
+        createdAt: "2023-02-07T06:16:24.847Z",
+        dimension: "Intellectual",
+        end: "2009-11-12T20:00:00.000Z",
+        facilitators: ['Abby'],
+        hobbies: ['Debate', 'Public Speaking'],
+        levelOfCare: ['INDEPENDENT'],
+        location: "Library",
+        name: result,
+        start: "2009-11-12T19:00:00.000Z",
+        tags: ['outing'],
+        updatedAt: "2023-02-07T06:16:24.847Z",
+        isRepeated: false
+      };
+    addProgram(newData);
+    setOpen(false);
+  }
 
   // utilizing the useRef hook to create a focus on the open element
   const descriptionElementRef = React.useRef<HTMLElement>(null);
@@ -71,16 +97,17 @@ export default function ProgramDialog() {
             ref={descriptionElementRef}
             tabIndex={-1}
           >
-            {[...new Array(50)]
+            {/* <ProgramsForm /> */}
+            {[...new Array(1)]
               .map(
-                () => `Insert Form Here`,
+                () => 'Insert Form Here',
               )
               .join('\n')}
           </DialogContentText>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Cancel</Button>
-          <Button onClick={handleClose}>Submit</Button>
+          <Button onClick={handleSubmit}>Submit</Button>
         </DialogActions>
       </Dialog>
     </div>

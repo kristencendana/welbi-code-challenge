@@ -40,6 +40,7 @@ const Residents = () => {
   return (
     <div>
       {/* <Button variant="contained" onClick={handleClick}>Add New Program</Button> */}
+      <h1>All Residents</h1>
       <ResidentsDialog />
       <ResidentsTable />
     </div>
