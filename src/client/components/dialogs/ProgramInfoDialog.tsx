@@ -42,11 +42,15 @@ export default function ProgramInfoDialog({programId}: ProgramInfoDialogProps) {
       // if user already exists, send alert, otherwise add and update state
       if (programId){
         const {attendance} = programs[programId]
-        for (let attendee of attendance){
-          if (attendee.residentId === newData.residentId){
-            alert('User already enrolled in Program');
-          } else {
-            addResidentToProgram(Number(programId), newData);
+        if (attendance.length === 0){
+          addResidentToProgram(Number(programId), newData);
+        } else {
+          for (let attendee of attendance){
+            if (attendee.residentId === newData.residentId){
+              alert('User already enrolled in Program');
+            } else {
+              addResidentToProgram(Number(programId), newData);
+            }
           }
         }
       }

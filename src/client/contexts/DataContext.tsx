@@ -140,7 +140,6 @@ export const DataProvider: React.FC<Props> = ({children}) => {
         for (let resident of residentsArray){
           residentsObj[resident.id] = resident;
         }
-        console.log(residentsObj)
         setResidents(residentsObj);
       })
       .catch(() => {

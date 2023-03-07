@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {  useDataContext } from '../contexts/DataContext';
 import { useParams } from 'react-router-dom';
 import ResidentsTable from '../components/tables/ResidentsTable';
@@ -7,7 +7,11 @@ import {AttendeeOutputInterface} from '../types';
 
 const ProgramInfo = () => {
   // grabbing state from context
-  const {programs, addResidentToProgram} = useDataContext();
+  const {programs} = useDataContext();
+  // rerender when changes with programs state object
+  useEffect(() => {
+  }, [programs])
+  
   // accessing programId via query params from previous page's useNavigate hook
   const {programId} = useParams();
 
