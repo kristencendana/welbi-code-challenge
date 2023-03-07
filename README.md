@@ -20,4 +20,6 @@ If given more time, I would finish adding the forms components as it is currentl
 
 Dummy Data is being created for the project for demo purposes only.
 
+To start, run the command 'npm run build' then 'npm start' OR 'npm run dev'!
+
 I hope you enjoy my application. :)
