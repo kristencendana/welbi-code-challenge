@@ -34,7 +34,7 @@ export default function ProgramInfoDialog({programId}: ProgramInfoDialogProps) {
     // creating new dummy data
     const newData: AttendeeOutputInterface = 
       {
-        residentId: 79,
+        residentId: 70,
         status: "Active"
       } 
 
