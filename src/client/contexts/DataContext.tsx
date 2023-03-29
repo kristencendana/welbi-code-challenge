@@ -95,7 +95,7 @@ export const DataProvider: React.FC<Props> = ({children}) => {
       headers: {
           'Accept': 'application/json',
           'Content-Type': 'application/json',
-          Authorization: `Bearer <token>`
+          Authorization: `Bearer 34b37cc0-5abd-4b4d-aca4-ddb322e49277`
       },
       body: JSON.stringify({ "url": "https://github.com/kristencendana/welbi-code-challenge" })
     })
@@ -112,7 +112,7 @@ export const DataProvider: React.FC<Props> = ({children}) => {
   const fetchPrograms = ():void => {
     fetch('https://welbi.org/api/programs', {
       headers: {
-        Authorization: `Bearer <token>`}
+        Authorization: `Bearer 34b37cc0-5abd-4b4d-aca4-ddb322e49277`}
     })
       .then(response => response.json())
       .then(programsArray => {
@@ -131,7 +131,7 @@ export const DataProvider: React.FC<Props> = ({children}) => {
   const fetchResidents = ():void => {
     fetch('https://welbi.org/api/residents', {
       headers: {
-        Authorization: `Bearer <token>`}
+        Authorization: `Bearer 34b37cc0-5abd-4b4d-aca4-ddb322e49277`}
     })
       .then(response => response.json())
       .then(residentsArray => {
@@ -153,7 +153,7 @@ export const DataProvider: React.FC<Props> = ({children}) => {
       method: 'POST',
       headers: {
         'Content-Type': 'Application/JSON',
-        Authorization: `Bearer <token>`},
+        Authorization: `Bearer 34b37cc0-5abd-4b4d-aca4-ddb322e49277`},
       body: JSON.stringify(program)
     })
       .then(response => response.json())
@@ -178,7 +178,7 @@ export const DataProvider: React.FC<Props> = ({children}) => {
       method: 'POST',
       headers: {
         'Content-Type': 'Application/JSON',
-        Authorization: `Bearer <token>`},
+        Authorization: `Bearer 34b37cc0-5abd-4b4d-aca4-ddb322e49277`},
       body: JSON.stringify(resident)
     })
       .then(response => response.json())
@@ -201,7 +201,7 @@ export const DataProvider: React.FC<Props> = ({children}) => {
       method: 'POST',
       headers: {
         'Content-Type': 'Application/JSON',
-        Authorization: `Bearer <token>`
+        Authorization: `Bearer 34b37cc0-5abd-4b4d-aca4-ddb322e49277`
       },
       body: JSON.stringify(attendee)
     })
