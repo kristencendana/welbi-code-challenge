@@ -1,144 +1,91 @@
-import React, { useState } from "react";
-import {Button, Grid, TextField, FormControlLabel, FormControl, FormLabel, RadioGroup, Radio} from "@mui/material"
-import { useDataContext } from "../../contexts/DataContext";
+// import React, { useState, forwardRef, useImperativeHandle, ReactNode } from 'react';
+// import ReactDOM from "react-dom";
+// import { useForm, SubmitHandler } from "react-hook-form";
+// // import { forwardRef, useImperativeHandle,  } from 'react';
 
-// If given more time, we could complete the submit forms
+// export interface RefType {
+//   doSomething: () => void;
+// }
 
-const {addProgram} = useDataContext();
+// interface Props {
+//   children?: ReactNode;
+//   type: 'submit' | 'button';
+// }
 
-const defaultValues = {
-  name: "",
-  location: "",
-  dimension: "",
-  isRepeated: false,
-  allDay: false,
-};
+// export type Ref = HTMLButtonElement;
 
-const dummyData = {
-  createdAt: "2023-02-07T06:16:24.847Z",
-  end: "2009-11-12T20:00:00.000Z",
-  facilitators: ['Abby'],
-  hobbies: ['Debate', 'Public Speaking'],
-  levelOfCare: ['INDEPENDENT'],
-  start: "2009-11-12T19:00:00.000Z",
-  tags: ['outing'],
-  updatedAt: "2023-02-07T06:16:24.847Z",
-  isRepeated: false
-}
+// enum GenderEnum {
+//   female = "female",
+//   male = "male",
+//   other = "other"
+// }
 
-export default function ProgramsForm() {
-const [formValues, setFormValues] = useState(defaultValues);
+// interface IFormInput {
+//   firstName: String;
+//   gender: GenderEnum;
+// }
 
-const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-  const { name, value } = e.target;
-  setFormValues({
-    ...formValues,
-    [name]: value,
-  });
-};
+// export const ProgramsForm = React.forwardRef<Ref, Props>((props, ref) => {
+//   const { register, handleSubmit } = useForm<IFormInput>();
+//   //   defaultValues: { name: "Mr Smith", description: "A nice guy" }
+//   // });
 
-const handleSubmit = (event: React.FormEvent) => {
-  event.preventDefault();
+//   // const [formData, setFormData] = useState([]);
 
-  console.log(formValues);
-  const newData = Object.assign({}, formValues, dummyData);
-  console.log(newData);
-  alert(newData);
-  // addProgram(newData)
-  setFormValues(defaultValues);
-};
+//   // const myRef = React.useRef<HTMLFormElement>(null);
 
-  return (
-    <form onSubmit={handleSubmit}>
-      <Grid container alignItems="center" justifyContent="center" direction="column">
-        <Grid item>
-        {/* // type for NAME string */}
-          <TextField
-            id="name-input"
-            name="name"
-            label="Name"
-            type="text"
-            value={formValues.name}
-            onChange={handleInputChange}
-          />
-        </Grid>
-        {/* String Inputs */}
-        <Grid item>
-        {/* // type for LOCATION string */}
-          <TextField
-            id="location-input"
-            name="location"
-            label="Location"
-            type="text"
-            value={formValues.location}
-            onChange={handleInputChange}
-          />
-        </Grid>
-        <Grid item>
-        {/* // type for DIMENSION string */}
-          <TextField
-            id="dimension-input"
-            name="dimension"
-            label="Dimension"
-            type="text"
-            value={formValues.dimension}
-            onChange={handleInputChange}
-          />
-        </Grid>
-          <Grid item>
-            <FormControl>
-              <FormLabel>All Day</FormLabel>
-              <RadioGroup
-                name="gender"
-                value={formValues.allDay}
-                onChange={handleInputChange}
-                row
-              >
-                <FormControlLabel
-                  key="true"
-                  value="true"
-                  control={<Radio size="small" />}
-                  label="True"
-                />
-                <FormControlLabel
-                  key="false"
-                  value="false"
-                  control={<Radio size="small" />}
-                  label="False"
-                />
-              </RadioGroup>
-            </FormControl>
-          </Grid>
-          <Grid item>
-          <Grid item>
-            <FormControl>
-              <FormLabel>Repeated?</FormLabel>
-              <RadioGroup
-                name="gender"
-                value={formValues.isRepeated}
-                onChange={handleInputChange}
-                row
-              >
-                <FormControlLabel
-                  key="true"
-                  value="true"
-                  control={<Radio size="small" />}
-                  label="Yes"
-                />
-                <FormControlLabel
-                  key="false"
-                  value="false"
-                  control={<Radio size="small" />}
-                  label="No"
-                />
-              </RadioGroup>
-            </FormControl>
-          </Grid>
-          </Grid>
-          <Button variant="contained" color="primary" type="submit">
-            Submit
-          </Button>
-      </Grid>
-    </form>
-  )
-}
+//   // const onSubmit: SubmitHandler<IFormInput> = data => {
+//   //   console.log(data);
+//   //   alert('button clicked')
+//     // const result = Math.random().toString(36).substring(2,7);
+//     // const newData : ProgramOutputInterface = 
+//     //   {
+//     //     allDay: false,
+//     //     createdAt: "2023-02-07T06:16:24.847Z",
+//     //     dimension: "Intellectual",
+//     //     end: "2009-11-12T20:00:00.000Z",
+//     //     facilitators: ['Abby'],
+//     //     hobbies: ['Debate', 'Public Speaking'],
+//     //     levelOfCare: ['INDEPENDENT'],
+//     //     location: "Library",
+//     //     name: result,
+//     //     start: "2009-11-12T19:00:00.000Z",
+//     //     tags: ['outing'],
+//     //     updatedAt: "2023-02-07T06:16:24.847Z",
+//     //     isRepeated: false
+//     //   };
+//     // addProgram(newData);
+//   // }
+
+//   // const onSubmit = (d) => {
+//   //   setFormData([...formData, d]);
+//   // };
+
+//   // const onError = (e) => {
+//   //   console.error(e);
+//   // };
+
+//   // // Expose submitForm method to parent component.
+//   // useImperativeHandle(ref, () => ({
+//   //   submitForm() {
+//   //     handleSubmit(onSubmit, onError)();
+//   //   }
+//   // }));
+
+//   return (
+//     <form ref={myRef} onSubmit={handleSubmit(onSubmit)}>
+//       <label>First Name</label>
+//       <input {...register("firstName")} />
+//       <label>Gender Selection</label>
+//       <select {...register("gender")} >
+//         <option value="female">female</option>
+//         <option value="male">male</option>
+//         <option value="other">other</option>
+//       </select>
+//       <input type="submit" />
+//     </form>
+//     // <div>
+//     //   <p>Hello</p>
+//     // </div>
+//   );
+// });

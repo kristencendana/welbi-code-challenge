@@ -7,6 +7,7 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import { useDataContext } from '../../contexts/DataContext';
 import {AttendeeOutputInterface} from '../../types';
+// import ProgramsForm from '../forms/ProgramsForm';
 
 // props for Program Info Dialog Component
 export interface ProgramInfoDialogProps {
@@ -91,7 +92,7 @@ export default function ProgramInfoDialog({programId}: ProgramInfoDialogProps) {
           >
             {[...new Array(1)]
               .map(
-                () => `Insert Form Here`,
+                () => "Enroll Resident to Program",
               )
               .join('\n')}
           </DialogContentText>

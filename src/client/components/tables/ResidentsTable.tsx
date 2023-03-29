@@ -50,20 +50,14 @@ export default function ResidentsTable({programId}:ResidentsDisplayProps) {
 
   const {programs, residents} = useDataContext();
   const residentsArray: ResidentInterface[] = [];
-  const noAttendance = [];
 
   if (programId){
     // grab the program's array attendance with programId
     const attendees = programs[programId].attendance;
-    // if no attendance, display no attendance, otherwise display attendees
-    if (attendees.length === 0){
-      noAttendance.push(<div>No Current Attendees</div>)
-    } else {
-      for (let attendee of attendees){
-        const {residentId} = attendee;
-        const residentObj = residents[residentId];
-        residentsArray.push(residentObj);
-      }
+    for (let attendee of attendees){
+      const {residentId} = attendee;
+      const residentObj = residents[residentId];
+      residentsArray.push(residentObj);
     }
   } else {
     residentsArray.push(...Object.values(residents));
@@ -88,16 +82,15 @@ export default function ResidentsTable({programId}:ResidentsDisplayProps) {
           </TableRow>
         </TableHead>
         <TableBody>
-          {noAttendance}
-          {residentsArray.map((row: ResidentInterface) => (
-            <StyledTableRow key={row.id}>
+          {residentsArray.map((residentObj: ResidentInterface) => (
+            <StyledTableRow key={residentObj.id}>
               <StyledTableCell sx={{color: 'primary.main', cursor: 'pointer'}} 
-                component="th" scope="row" onClick={() => handleClick(row.id)}>
-                {row.name}
+                component="th" scope="row" onClick={() => handleClick(residentObj.id)}>
+                {residentObj.name}
               </StyledTableCell>
-              <StyledTableCell align="right">{row.room}</StyledTableCell>
-              <StyledTableCell align="right">{row.status}</StyledTableCell>
-              <StyledTableCell align="right">{row.levelOfCare}</StyledTableCell>
+              <StyledTableCell align="right">{residentObj.room}</StyledTableCell>
+              <StyledTableCell align="right">{residentObj.status}</StyledTableCell>
+              <StyledTableCell align="right">{residentObj.levelOfCare}</StyledTableCell>
             </StyledTableRow>
           ))}
         </TableBody>

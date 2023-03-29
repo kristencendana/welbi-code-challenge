@@ -23,9 +23,13 @@ const ProgramInfo = () => {
     // if programId is truthy, access and grab the values from
     // the state object with key as programId and push component with attribute
     programName.push(programs[programId].name);
-    residentsList.push(<ResidentsTable programId={programId}/>);
-  } else {
-    residentsList.push(<ResidentsTable />);
+    
+    if (programs[programId].attendance.length){
+      // residentsList.push("Has length.");
+      residentsList.push(<ResidentsTable key={programId} programId={programId}/>);
+    } else {
+      residentsList.push("No current attendees.");
+    }
   }
 
   return (
